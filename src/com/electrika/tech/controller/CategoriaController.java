@@ -88,7 +88,7 @@ public class CategoriaController implements ActionListener {
             return input; // Devolver el mismo texto si es nulo o vacío
         }
 
-        // Convertir la primera letra a mayúscula y concatenar el resto del texto
+        // Convertir la primera letra a mayúscula y concatenar el resto del texto.
         return String.format("%s%s", input.substring(0, 1).toUpperCase(), input.substring(1).toLowerCase());
 
     }
