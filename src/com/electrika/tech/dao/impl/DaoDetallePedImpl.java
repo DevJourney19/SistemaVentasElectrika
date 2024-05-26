@@ -6,6 +6,7 @@ import com.electrika.tech.dao.DaoProducto;
 import static com.electrika.tech.dao.impl.DaoPedidoImpl.idPed;
 
 import com.electrika.tech.entidades.DetallePedido;
+import com.electrika.tech.entidades.Producto;
 import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.electrika.tech.util.ConectaBD;
+import java.util.Stack;
 
 public class DaoDetallePedImpl implements DaoDetallePedido {
 
@@ -240,8 +242,7 @@ public class DaoDetallePedImpl implements DaoDetallePedido {
     }
 
     @Override
-    public String actualizarPedido(Integer idDet
-    ) {
+    public String actualizarPedido(Integer idDet) {
         StringBuilder sql = new StringBuilder();
         Integer idPedido = idPed;
         sql.append("UPDATE DetallePedido SET ")
@@ -268,5 +269,36 @@ public class DaoDetallePedImpl implements DaoDetallePedido {
     public void eliminarMemoria() {
         detallePedidos.clear();
         detallePedidos = new ArrayList<>();
+    }
+
+    @Override
+    public List<Object[]> obtenerProductos(Integer idPed) {
+        List<Object[]> lista = null;
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT ")
+                .append("cantidadProducto,")
+                .append("nombreProducto,")
+                .append("precioUnidad,")
+                .append("subtotal")
+                .append(" FROM DetallePedido")
+                .append(" INNER JOIN Producto ON Producto.idProducto = DetallePedido.idProducto")
+                .append(" WHERE idPedido = ?");
+        try (Connection c = con.getConexion()) {
+            PreparedStatement ps = c.prepareStatement(sql.toString());
+            ps.setInt(1, idPed);
+            ResultSet rs = ps.executeQuery();
+            lista = new ArrayList<>();
+            while (rs.next()) {
+                Object[] obj = new Object[4];
+                obj[0] = rs.getInt(1);
+                obj[1] = rs.getString(2);
+                obj[2] = rs.getDouble(3);
+                obj[3] = rs.getDouble(4);
+                lista.add(obj);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return lista;
     }
 }
