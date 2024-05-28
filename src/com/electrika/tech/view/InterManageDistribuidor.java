@@ -47,6 +47,7 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         txtBuscarB = new javax.swing.JTextField();
         btnBuscarB = new javax.swing.JButton();
+        btnDeshacer = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -110,17 +111,17 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
         btnEditar.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrika/tech/img/editar-codigo.png"))); // NOI18N
         btnEditar.setText("Editar");
-        jPanel1.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 160, 150, 40));
+        jPanel1.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 580, 150, 40));
 
         btnEliminar.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrika/tech/img/basura.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
-        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 210, 150, 40));
+        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 190, 150, 40));
 
         btnAgregar.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrika/tech/img/agregar-usuario.png"))); // NOI18N
         btnAgregar.setText("Agregar");
-        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 110, 150, -1));
+        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 140, 150, -1));
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrika/tech/img/lupa1.png"))); // NOI18N
         btnBuscar.setEnabled(false);
@@ -223,6 +224,10 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 80, 350, 490));
 
+        btnDeshacer.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btnDeshacer.setText("Deshacer");
+        jPanel1.add(btnDeshacer, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 580, 150, 40));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -256,6 +261,7 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
     public javax.swing.JButton btnBuscar;
     public javax.swing.JButton btnBuscarB;
     public javax.swing.JButton btnCancelar;
+    public javax.swing.JButton btnDeshacer;
     public javax.swing.JButton btnEditar;
     public javax.swing.JButton btnEliminar;
     public javax.swing.JButton btnOrdenar;
