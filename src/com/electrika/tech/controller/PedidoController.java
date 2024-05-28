@@ -1,16 +1,36 @@
 package com.electrika.tech.controller;
 
+import java.io.FileNotFoundException;
+
 import com.electrika.tech.dao.*;
 import com.electrika.tech.dao.impl.*;
 import com.electrika.tech.entidades.*;
 import com.electrika.tech.view.InterPedido;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import static java.awt.image.ImageObserver.HEIGHT;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -80,6 +100,8 @@ public class PedidoController implements ActionListener {
         view.btnRegistrar.addActionListener(this);
         view.cbProducto.addActionListener(this);
         view.btnGuardar.addActionListener(this);
+        view.btnCancelAgregar.addActionListener(this);
+        view.btnImprimir.addActionListener(this);
 
         view.txtIdDetallePedi.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
@@ -181,9 +203,12 @@ public class PedidoController implements ActionListener {
                     listado();
                 }
             } else {
+                view.btnAgregar.setEnabled(true);
                 view.txtDescripcion.setText(null);
                 view.cbMetodoPago.setSelectedIndex(0);
                 view.txtFecha.setText(fechaActual());
+                view.cbCliente.setSelectedIndex(0);
+                view.tablita.clearSelection();
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debes elegir una fila");
@@ -192,9 +217,25 @@ public class PedidoController implements ActionListener {
 
     private void agregar() {
         habilitar(true);
+        view.btnGuardar.setEnabled(true);
+        view.btnCancelAgregar.setEnabled(true);
         view.btnEliminar.setEnabled(false);
         view.btnAgregar1.setEnabled(true);
         view.btnRegistrar.setEnabled(true);
+        view.btnAgregar.setEnabled(false);
+    }
+
+    private void cancelarAgregar() {
+        view.btnCancelAgregar.setEnabled(false);
+        habilitar(false);
+        view.txtDescripcion.setText(null);
+        view.cbMetodoPago.setSelectedIndex(0);
+        view.btnAgregar.setEnabled(true);
+        view.cbCliente.setSelectedIndex(0);
+        view.btnEliminar.setEnabled(true);
+        view.btnGuardar.setEnabled(false);
+        view.btnAgregar1.setEnabled(false);
+        view.btnRegistrar.setEnabled(false);
     }
 
     private void guardar() {
@@ -207,6 +248,7 @@ public class PedidoController implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Ingrese los campos de pedido");
                 listado();
             } else {
+                view.btnCancelAgregar.setEnabled(false);
                 Cliente cliSeleccionado = null;
                 for (Cliente cl : clie.select()) {
                     if (cl.getNombreUsuario().equals(view.cbCliente.getSelectedItem().toString())) {
@@ -228,7 +270,6 @@ public class PedidoController implements ActionListener {
                 view.btnEliminar.setEnabled(true);
                 view.btnRegistrar.setEnabled(false);
                 view.btnAgregar1.setEnabled(false);
-                view.btnEliminar.setEnabled(true);
                 habilitar(false);
                 modelo.setNumRows(0);
                 detaPedi.eliminarMemoria();
@@ -237,6 +278,202 @@ public class PedidoController implements ActionListener {
                 view.btnGuardar.setEnabled(false);
             }
         }
+    }
+
+    private void imprimirBoleta() throws FileNotFoundException {
+        Integer fila = view.tablita.getSelectedRow();
+        if (view.tablita.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "No hay datos para crear la boleta");
+        } else if (fila >= 0) {
+            Integer op = JOptionPane.showConfirmDialog(null, "Deseas crear la boleta de esta compra?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (op == JOptionPane.YES_OPTION) {
+                Integer numPedido = (Integer) view.tablita.getValueAt(fila, 0);
+                String nombre = (String) view.tablita.getValueAt(fila, 2);
+//                obtener id de pedido, buscsr en tabla dw pedido luego buscar todas coincidencias en detalle pedido y almacenar en un stack y mostrarlo
+                List<Object[]> productos = detaPedi.obtenerProductos(numPedido);
+                crearArchivo(numPedido, nombre, productos);
+            } else {
+                view.tablita.clearSelection();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes elegir una fila");
+        }
+    }
+
+    private void crearArchivo(Integer pedido, String nombre, List<Object[]> productos) throws FileNotFoundException {
+        String downloadPath = System.getProperty("user.home") + "/Downloads/";
+        String fileName = String.format("Nº%s_%s.pdf", pedido, nombre);
+        String fullPath = downloadPath + fileName;
+
+        Document document = new Document();
+
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream(fullPath));
+
+            document.open();
+
+//            Encabezado
+            PdfPTable Encabezado = new PdfPTable(2);
+            Encabezado.setWidthPercentage(100);
+            Encabezado.getDefaultCell().setBorder(0);
+            int[] ColumnaEncabezado = new int[]{1, 1};
+            Encabezado.setWidths(ColumnaEncabezado);
+
+            PdfPCell imageAndTitleCell = new PdfPCell();
+            imageAndTitleCell.setBorder(Rectangle.NO_BORDER);
+            Image img = Image.getInstance("src/com/electrika/tech/img/logo.png");
+            img.scaleToFit(100, 100);
+            imageAndTitleCell.addElement(img);
+
+            Encabezado.addCell(imageAndTitleCell);
+
+            // segunda columna: fecha y número de factura
+            Date date = new Date();
+            PdfPCell dateAndInvoiceCell = new PdfPCell();
+            dateAndInvoiceCell.setBorder(Rectangle.NO_BORDER);
+
+            // Fecha y número de factura
+            String fecha = new SimpleDateFormat("dd/MM/yyyy").format(date);
+            Paragraph dateAndInvoice = new Paragraph(String.format("Fecha %s\nFactura\nNº1", fecha));
+            dateAndInvoice.setAlignment(Element.ALIGN_RIGHT);
+            dateAndInvoiceCell.addElement(dateAndInvoice);
+
+            Encabezado.addCell(dateAndInvoiceCell);
+
+            // Agregar el encabezado al documento
+            document.add(Encabezado);
+
+//            Datos del cliente
+            Font negrita = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
+            Paragraph cli = new Paragraph();
+            cli.add(Chunk.NEWLINE);
+            cli.add("Datos del Cliente" + "\n\n");
+            document.add(cli);
+            PdfPTable tablaDatos = new PdfPTable(2);
+            tablaDatos.setWidthPercentage(100);
+            tablaDatos.getDefaultCell().setBorder(0);
+            int[] ColumnaDa = new int[]{1, 1};
+            tablaDatos.setWidths(ColumnaDa);
+            Cliente cliente = pedi.dataCliente(pedido);
+            PdfPCell cd1 = new PdfPCell(new Phrase(String.format("Cliente: %s %s", cliente.getNombreUsuario(), cliente.getApellidoUsuario())));
+            PdfPCell cd2 = new PdfPCell(new Phrase(String.format("DNI: %s", cliente.getDni())));
+            PdfPCell cd3 = new PdfPCell(new Phrase(String.format("Telefono: %s", cliente.getTelefono())));
+            PdfPCell cd4 = new PdfPCell(new Phrase(String.format("Correo: %s", cliente.getCorreo())));
+            cd1.setBorder(0);
+            cd2.setBorder(0);
+            cd3.setBorder(0);
+            cd4.setBorder(0);
+            tablaDatos.addCell(cd1);
+            tablaDatos.addCell(cd2);
+            tablaDatos.addCell(cd3);
+            tablaDatos.addCell(cd4);
+            Paragraph salto = new Paragraph();
+            salto.add(Chunk.NEWLINE);
+            document.add(tablaDatos);
+            document.add(salto);
+
+//            Tabla de datos;
+            PdfPTable tablacli = new PdfPTable(4);
+            tablacli.setWidthPercentage(100);
+            tablacli.getDefaultCell().setBorder(Rectangle.BOX);
+            int[] ColumnaCli = new int[]{2, 4, 2, 2};
+            tablacli.setWidths(ColumnaCli);
+            PdfPCell cl1 = new PdfPCell(new Phrase("Cantidad", negrita));
+            PdfPCell cl2 = new PdfPCell(new Phrase("Producto", negrita));
+            PdfPCell cl3 = new PdfPCell(new Phrase("Precio", negrita));
+            PdfPCell cl4 = new PdfPCell(new Phrase("Subtotal", negrita));
+            cl1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cl2.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cl3.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tablacli.addCell(cl1);
+            tablacli.addCell(cl2);
+            tablacli.addCell(cl3);
+            tablacli.addCell(cl4);
+            for (Object[] pro : productos) {
+                for (Object obj : pro) {
+                    // Crear una celda PdfPCell para cada objeto y luego agregarlo a la tabla
+                    PdfPCell cell = new PdfPCell(new Phrase(obj.toString())); // Convertir el objeto a String
+                    cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                    tablacli.addCell(cell);
+                }
+            }
+
+            document.add(tablacli);
+
+            Double precioTotal = pedi.get(pedido).getPrecioTotal();
+            Paragraph infoP = new Paragraph(String.format("Total a pagar S/. %s", precioTotal));
+            infoP.setAlignment(Element.ALIGN_RIGHT);
+            Paragraph salto2 = new Paragraph();
+            salto2.add(Chunk.NEWLINE);
+            document.add(salto2);
+            document.add(infoP);
+
+            Paragraph firma = new Paragraph();
+            firma.add(Chunk.NEWLINE);
+            firma.add("Firma\n\n");
+            firma.add("-----------------------------------------");
+            firma.setAlignment(Element.ALIGN_CENTER);
+            document.add(firma);
+
+            Paragraph mensaje = new Paragraph();
+            mensaje.add(Chunk.NEWLINE);
+            mensaje.add("Gracias por su compra!!");
+            mensaje.setAlignment(Element.ALIGN_CENTER);
+            document.add(mensaje);
+
+//            contactyo titulo
+            Paragraph contacto = new Paragraph("Contacto", negrita);
+            document.add(contacto);
+//            String ruc="736492736";
+//            informacion contacto
+            PdfPTable footerTable = new PdfPTable(2);
+            footerTable.setWidthPercentage(100);
+            footerTable.setWidths(new int[]{2, 5}); // Ancho de columnas
+
+            // Columna 1
+            PdfPCell cell1 = new PdfPCell();
+            cell1.setBorder(Rectangle.NO_BORDER);
+            Phrase emailPhrase = new Phrase();
+//            emailPhrase.add(emailIcon);
+            emailPhrase.add(new Phrase("Email: hola.gmail.com"));
+            cell1.addElement(emailPhrase);
+            // Icono de ubicación y texto
+//            Chunk locationIcon = new Chunk(Icon.get(com.itextpdf.text.Font.FontFamily.ZAPFDINGBATS, "l"), 0, 0);
+            Phrase locationPhrase = new Phrase();
+//            locationPhrase.add(locationIcon);
+            locationPhrase.add(new Phrase("Direccion: call.34"));
+            cell1.addElement(locationPhrase);
+
+            // Columna 2
+            PdfPCell cell2 = new PdfPCell();
+            cell2.setBorder(Rectangle.NO_BORDER);
+            // Icono de página web y texto
+//            Chunk webIcon = new Chunk(Icon.get(com.itextpdf.text.Font.FontFamily.ZAPFDINGBATS, "W"), 0, 0);
+            Phrase rucPhrase = new Phrase();
+//            webPhrase.add(webIcon);
+            rucPhrase.add(new Phrase("Ruc: 2522356787"));
+            cell2.addElement(rucPhrase);
+            // Icono de teléfono y texto
+//            Chunk phoneIcon = new Chunk(Icon.get(com.itextpdf.text.Font.FontFamily.ZAPFDINGBATS, "+"), 0, 0);
+            Phrase phonePhrase = new Phrase();
+//            phonePhrase.add(phoneIcon);
+            phonePhrase.add(new Phrase("Telefono: +51 9232392832"));
+            cell2.addElement(phonePhrase);
+
+            footerTable.addCell(cell1);
+            footerTable.addCell(cell2);
+
+            // Agregar pie de página al documento
+            document.add(footerTable);
+
+            document.close();
+            // Abrir el archivo automáticamente
+            File pdfFile = new File(fullPath);
+            Desktop.getDesktop().open(pdfFile);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
     }
 
     private void eliminar1() {
@@ -483,6 +720,14 @@ public class PedidoController implements ActionListener {
             cbProducto();
         } else if (e.getSource() == view.btnGuardar) {
             guardar();
+        } else if (e.getSource() == view.btnCancelAgregar) {
+            cancelarAgregar();
+        } else if (e.getSource() == view.btnImprimir) {
+            try {
+                imprimirBoleta();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(PedidoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

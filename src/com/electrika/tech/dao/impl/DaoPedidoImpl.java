@@ -1,6 +1,7 @@
 package com.electrika.tech.dao.impl;
 
 import com.electrika.tech.dao.*;
+import com.electrika.tech.entidades.Cliente;
 import com.electrika.tech.entidades.Pedido;
 import java.util.List;
 import java.sql.PreparedStatement;
@@ -159,10 +160,11 @@ public class DaoPedidoImpl implements DaoPedido {
                 .append("descripcionPedido,")
                 .append("fechaPedido,")
                 .append("metodoPago,")
-                .append("precioTotal")
+                .append("precioTotal,")
                 .append("idCliente,")
                 .append("idVendedor")
-                .append(" FROM Pedido");
+                .append(" FROM Pedido")
+                .append(" WHERE idPedido = ?");
         try (Connection c = con.getConexion()) {
             PreparedStatement ps = c.prepareStatement(sql.toString());
             ps.setInt(1, id);
@@ -218,6 +220,36 @@ public class DaoPedidoImpl implements DaoPedido {
             System.out.println(e.getMessage());
         }
         return lista;
+    }
+
+    @Override
+    public Cliente dataCliente(Integer idPed) {
+        Cliente cli = new Cliente();
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT ")
+                .append("apellido,")
+                .append("nombre,")
+                .append("telefono,")
+                .append("correo,")
+                .append("dni")
+                .append(" FROM Pedido")
+                .append(" INNER JOIN Cliente ON Pedido.idCliente = Cliente.idCliente")
+                .append(" WHERE idPedido = ?");
+        try (Connection c = con.getConexion()) {
+            PreparedStatement ps = c.prepareStatement(sql.toString());
+            ps.setInt(1, idPed);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                cli.setApellidoUsuario(rs.getString(1));
+                cli.setNombreUsuario(rs.getString(2));
+                cli.setTelefono(rs.getString(3));
+                cli.setCorreo(rs.getString(4));
+                cli.setDni(rs.getString(5));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return cli;
     }
 
 }

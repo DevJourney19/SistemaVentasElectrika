@@ -12,6 +12,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Stack;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,6 +22,7 @@ public class ClienteController implements ActionListener {
     DaoCliente dao;
     DefaultTableModel tabla;
     private InterManageClient view;
+    private Stack<Cliente> stack = new Stack<>();
 
     public ClienteController(InterManageClient view) {
         this.view = view;
@@ -140,8 +143,7 @@ public class ClienteController implements ActionListener {
 
     private void listado() {
         tabla.setNumRows(0);
-        //TableRowSorter<DefaultTableModel> sorter=new TableRowSorter<>(tabla);
-        //view.tableClients.setRowSorter(sorter);
+        stack.clear();
         view.tableClients.clearSelection();
         view.txtId.setText(null);
         view.txtDni.setText(null);
@@ -149,15 +151,21 @@ public class ClienteController implements ActionListener {
         view.txtApellido.setText(null);
         view.txtTelefono.setText(null);
         view.txtCorreo.setText(null);
-        Object[] obj = new Object[6];
+//        ir agregando a la pila
         for (Cliente cli : dao.select()) {
-            obj[0] = cli.getCodUsuario();
-            obj[1] = cli.getDni();
-            obj[2] = cli.getNombreUsuario();
-            obj[3] = cli.getApellidoUsuario();
-            obj[4] = cli.getTelefono();
-            obj[5] = cli.getCorreo();
-            tabla.addRow(obj);
+            stack.push(cli);
+        }
+
+//        iterar sobre la pila para agregar en las filas los datos
+        for (Cliente cli : stack) {
+            tabla.addRow(new Object[]{
+                cli.getCodUsuario(),
+                cli.getDni(),
+                cli.getNombreUsuario(),
+                cli.getApellidoUsuario(),
+                cli.getTelefono(),
+                cli.getCorreo()
+            });
         }
     }
 
@@ -185,10 +193,9 @@ public class ClienteController implements ActionListener {
             String apellido = capitalizeFirstLetter(view.txtApellido.getText());
             String dni = view.txtDni.getText();
             String telefono = view.txtTelefono.getText();
-            String correo = capitalizeFirstLetter(view.txtCorreo.getText());
-
-            JOptionPane.showMessageDialog(null,
-                    dao.insert(new Cliente(null, apellido, nombre, dni, telefono, correo)));
+            String correo = view.txtCorreo.getText();
+            Cliente cli = new Cliente(null, apellido, nombre, dni, telefono, correo);
+            JOptionPane.showMessageDialog(null, dao.insert(cli));
             listado();
             habilitar(false);
         }
@@ -218,7 +225,21 @@ public class ClienteController implements ActionListener {
 
     private void aceptarEliminar() {
         Integer id = Integer.valueOf(view.txtId.getText());
-        dao.delete(id);
+        Cliente eliminado = null;
+//        Identificar si se encuentra el objeto que se elimino
+        for (Cliente cli : stack) {
+            if (cli.getCodUsuario().equals(id)) {
+                eliminado = cli;
+                break;
+            }
+        }
+
+        if (eliminado != null) {
+            dao.delete(id);
+            JOptionPane.showMessageDialog(null, String.format("Se ha eliminado correctamente el Cliente %s con id %s", eliminado.getNombreUsuario(), id));
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró ningún cliente con el ID proporcionado en el Stack.");
+        }
         listado();
         habilitar(false);
     }
@@ -244,19 +265,38 @@ public class ClienteController implements ActionListener {
     }
 
     private void buscar() {
-        Integer id = Integer.valueOf(view.txtId.getText());
-        habilitar(true);
         if (view.txtId.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingresa un Id");
-        } else if (dao.get(id) != null) {
+            return;
+        }
+
+        Integer id = Integer.valueOf(view.txtId.getText());
+        boolean encontrado = false;
+        for(Cliente buscar:stack){
+            if(buscar.getCodUsuario().equals(id)){
+                encontrado = true;
+                break;
+            }
+        }
+        
+        if (encontrado) {
+            habilitar(true);
             Cliente cli = dao.get(id);
-            view.txtDni.setText(cli.getDni());
-            view.txtNombre.setText(cli.getNombreUsuario());
-            view.txtApellido.setText(cli.getApellidoUsuario());
-            view.txtTelefono.setText(cli.getTelefono());
-            view.txtCorreo.setText(cli.getCorreo());
+            if (cli != null) {
+                view.txtDni.setText(cli.getDni());
+                view.txtNombre.setText(cli.getNombreUsuario());
+                view.txtApellido.setText(cli.getApellidoUsuario());
+                view.txtTelefono.setText(cli.getTelefono());
+                view.txtCorreo.setText(cli.getCorreo());
+                JOptionPane.showMessageDialog(null, "Cliente encontrado: " + cli.getNombreUsuario());
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el cliente en la base de datos.");
+                habilitar(false);
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "No se encontro el id");
+            JOptionPane.showMessageDialog(null, "No se encontró el ID en la pila.");
+            habilitar(false);
+            view.btnCancelar.setEnabled(true);
         }
     }
 

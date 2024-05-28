@@ -75,7 +75,7 @@ public class DaoClienteImpl implements DaoCliente {
             ps.setString(3, categoria.getTelefono());
             ps.setString(4, categoria.getCorreo());
             ps.setString(5, categoria.getDni());
-            mensaje = (ps.executeUpdate() == 0) ? "No se actualizo" : null;
+            mensaje = (ps.executeUpdate() == 0) ? "No se actualizo" : "Se inserto correctamente";
 
         } catch (Exception e) {
             mensaje = e.getMessage();
@@ -136,7 +136,7 @@ public class DaoClienteImpl implements DaoCliente {
                 .append("correo,")
                 .append("dni")
                 .append(" FROM Cliente")
-                .append(" WHERE idDistribuidor =?");
+                .append(" WHERE idCliente = ?");
         try (Connection c = con.getConexion()) {
             PreparedStatement ps = c.prepareStatement(sql.toString());
             ps.setInt(1, id);

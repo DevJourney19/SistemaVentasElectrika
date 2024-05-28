@@ -5,11 +5,11 @@ public class Cliente extends Usuario{
     private String telefono;
     private String correo;
     private String dni;
-
+    
     public Cliente() {
         super(null, null, null);
     }
-
+    
     public Cliente(Integer codUsuario, String apellidoUsuario, String nombreUsuario, String dni, String telefono, String correo) {
         super(codUsuario, apellidoUsuario, nombreUsuario);
         this.telefono = telefono;

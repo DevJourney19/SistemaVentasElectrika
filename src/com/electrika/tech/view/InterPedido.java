@@ -13,6 +13,8 @@ public class InterPedido extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         txtFecha = new javax.swing.JTextField();
+        btnCancelAgregar = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -73,6 +75,15 @@ public class InterPedido extends javax.swing.JInternalFrame {
         txtFecha.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Fecha de hoy:"));
         txtFecha.setEnabled(false);
         jPanel1.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 150, 40));
+
+        btnCancelAgregar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnCancelAgregar.setText("Cancelar");
+        btnCancelAgregar.setEnabled(false);
+        jPanel1.add(btnCancelAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 190, 100, 30));
+
+        btnImprimir.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnImprimir.setText("Crear Boleta");
+        jPanel1.add(btnImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 600, 130, 40));
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 80)); // NOI18N
         jLabel1.setText("Venta");
@@ -328,10 +339,12 @@ public class InterPedido extends javax.swing.JInternalFrame {
     public javax.swing.JButton btnAgregar;
     public javax.swing.JButton btnAgregar1;
     public javax.swing.JButton btnBuscar1;
+    public javax.swing.JButton btnCancelAgregar;
     public javax.swing.JButton btnEditar;
     public javax.swing.JButton btnEliminar;
     public javax.swing.JButton btnEliminar1;
     public javax.swing.JButton btnGuardar;
+    public javax.swing.JButton btnImprimir;
     public javax.swing.JButton btnRegistrar;
     public javax.swing.JComboBox<String> cbCliente;
     public javax.swing.JComboBox<String> cbMetodoPago;
