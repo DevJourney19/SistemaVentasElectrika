@@ -58,32 +58,32 @@ public class SignInController implements ActionListener {
                 }
             }
         });
-        
+
         view.txtNewNombre.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {               
+            public void mouseClicked(MouseEvent e) {
                 view.txtNewNombre.setText("");
-            }       
+            }
         });
-        
+
         view.txtNewApellido.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {               
+            public void mouseClicked(MouseEvent e) {
                 view.txtNewApellido.setText("");
-            }       
+            }
         });
-        
+
         view.txtNewUsuario.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {               
+            public void mouseClicked(MouseEvent e) {
                 view.txtNewUsuario.setText("");
-            }       
+            }
         });
-        
+
         view.txtNewContra.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {               
+            public void mouseClicked(MouseEvent e) {
                 view.txtNewContra.setText("");
-            }       
+            }
         });
     }
-    
+
     public static String capitalizeFirstLetter(String input) {
         if (input == null || input.isEmpty()) {
             return input; // Devolver el mismo texto si es nulo o vacío
@@ -93,7 +93,7 @@ public class SignInController implements ActionListener {
         return String.format("%s%s", input.substring(0, 1).toUpperCase(), input.substring(1));
 
     }
-    
+
     private void iniciar() {
         boolean bool1 = view.txtNewUsuario.getText().isEmpty() || view.txtNewContra.getPassword().length == 0 && view.txtNewNombre.getText().isEmpty();
         boolean bool2 = view.txtNewUsuario.getText().equals("Ingrese nombre de usuario") || view.txtNewContra.getPassword().length == 0 || view.txtNewNombre.getText().equals("Ingrese su nombre y apellido");
@@ -101,14 +101,15 @@ public class SignInController implements ActionListener {
             JOptionPane.showMessageDialog(null, "Ingresa los datos requeridos para acceder");
         } else if (bool2) {
             JOptionPane.showMessageDialog(null, "Debes completar todos los datos");
-        
+
         } else {
             Vendedor empl = new Vendedor(null, capitalizeFirstLetter(view.txtNewApellido.getText()), capitalizeFirstLetter(view.txtNewNombre.getText()), view.txtNewUsuario.getText(), view.txtNewContra.getText(), "", "2020-03-25", "2020-03-25");
             String mensaje = dao.insert(empl);
             dao.iniciar(empl);
-            if (mensaje.equals("El nombre de usuario o contraseña ya existe")) {
-                JOptionPane.showMessageDialog(null, mensaje);
             
+           if (mensaje.equals("El nombre de usuario o contraseña ya existe")) {
+                JOptionPane.showMessageDialog(null, mensaje);
+
             } else {
                 //Bienvenido               
                 JOptionPane.showMessageDialog(null, mensaje);
@@ -116,6 +117,16 @@ public class SignInController implements ActionListener {
                 HomeViewController homc = new HomeViewController(prin);
                 view.dispose();
             }
+//           if (dao.insert(empl).getCodUsuario() > empl.getCodUsuario()) {
+//                //Bienvenido               
+////                JOptionPane.showMessageDialog(null, mensaje);
+//                HomeView prin = new HomeView();
+//                HomeViewController homc = new HomeViewController(prin);
+//                view.dispose();
+//            } else {
+//                //El nombre de usuario o contraseña ya existe
+//                System.out.println("El nombre de usuario o contraseña ya existe");
+//            }
         }
     }
 
