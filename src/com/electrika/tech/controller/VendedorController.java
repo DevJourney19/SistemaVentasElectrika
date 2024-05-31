@@ -388,4 +388,3 @@ public class VendedorController implements ActionListener {
         }
     }
 }
-//haber actualizacion probando//
