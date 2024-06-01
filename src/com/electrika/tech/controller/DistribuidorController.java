@@ -18,13 +18,16 @@ import javax.swing.table.DefaultTableModel;
 
 public class DistribuidorController implements ActionListener {
 
+    Stack<Distribuidor> elementosEliminados = new Stack();
+    Distribuidor distro = null;
     DaoDistribuidor dao;
     DefaultTableModel tabla;
     private InterManageDistribuidor view;
     Stack<String> pila;
-    Distribuidor distro = null;
+//    Distribuidor distro = null;
     Distribuidor distriAntiguo = null;
-    Integer indic = -1;
+//    Integer indic = -1;
+
     public DistribuidorController(InterManageDistribuidor view) {
         this.view = view;
         pila = new Stack<>();
@@ -187,6 +190,10 @@ public class DistribuidorController implements ActionListener {
 
     private void aceptarAgregar() {
         // TODO add your handling ide here:
+        view.cb_queOrdenar.setSelectedItem("<Seleccionar item>");
+        view.labelResultado.setText(" ");
+        view.labelAntesResu.setText("");
+        view.labelBuscar.setText("");
         DaoDistribuidorImpl deo = new DaoDistribuidorImpl();
         boolean bool = view.txtName.getText().isEmpty() || view.txtDirection.getText().isEmpty() || view.txtRuc.getText().isEmpty() || view.txtPhone.getText().isEmpty();
         if (bool) {
@@ -209,9 +216,9 @@ public class DistribuidorController implements ActionListener {
  /*Se agrego a la pila la accion de la insercion*/
             dao.insert(distri);
             pila.push("deshacerAgregado");
-            JOptionPane.showMessageDialog(null, deo.ultimoValor());
+//            JOptionPane.showMessageDialog(null, deo.ultimoValor());
 
-            JOptionPane.showMessageDialog(null, distri);
+//            JOptionPane.showMessageDialog(null, distri);
 //            pila.add();
             //La referencia me esta diciendo que ahora debo eliminar
 //            referencia = "eliminar";
@@ -222,6 +229,11 @@ public class DistribuidorController implements ActionListener {
     }
 
     private void aceptarEditar() {
+        view.cb_queOrdenar.setSelectedItem("<Seleccionar item>");
+        view.labelResultado.setText(" ");
+        view.labelAntesResu.setText("");
+        view.labelBuscar.setText("");
+
         Integer ide = Integer.valueOf(view.txtCode.getText());
 
         boolean bool1 = view.txtCode.getText().isEmpty() || view.txtName.getText().isEmpty() || view.txtDirection.getText().isEmpty() || view.txtRuc.getText().isEmpty() || view.txtPhone.getText().isEmpty();
@@ -236,10 +248,12 @@ public class DistribuidorController implements ActionListener {
             String telefonoDistribuidor = view.txtPhone.getText();
 
             Distribuidor distri = new Distribuidor(ide, ruc, nombreDistribuidor, direccionDistribuidor, telefonoDistribuidor);
+            elementosEditados.push(distriAntiguo);
+
             dao.update(distri);
             pila.push("deshacerActualizado");
             JOptionPane.showMessageDialog(null, "Se acualizó el registro de un distribuidor");
-            System.out.println("Se actualizo " + distriAntiguo + "a: " + distri);
+//            System.out.println("Se actualizo " + distriAntiguo + "a: " + distri);
             listado();
             view.txtCode.setEnabled(false);
             view.btnBuscar.setEnabled(false);
@@ -248,9 +262,6 @@ public class DistribuidorController implements ActionListener {
     }
 
     private void aceptarEliminar() {
-
-        List elementosEliminados = new ArrayList();
-
         /**
          * Quiero obtener todos los valores, lo cual al hacer multiples
          * eliminaciones, tambien pueda hacer multiples agregaciones. No solo
@@ -258,31 +269,34 @@ public class DistribuidorController implements ActionListener {
          */
         /**
          * Primero, obtengo los valores que se encuentran en los TextField.
-         * Segundo, creo un objeto de tipo Distribuidor, para posteriormente agregarlo a la tabla.
-         * Tercero, agrego ese objeto creado a una lista
-         * Cuarto, lo que me falta hacer es identificar a cadad inserción por medio de su id. (o algo asi).
+         * Segundo, creo un objeto de tipo Distribuidor, para posteriormente
+         * agregarlo a la tabla. Tercero, agrego ese objeto creado a una lista
+         * Cuarto, lo que me falta hacer es identificar a cadad inserción por
+         * medio de su id. (o algo asi).
          */
-        
+        view.cb_queOrdenar.setSelectedItem("<Seleccionar item>");
+        view.labelResultado.setText(" ");
+        view.labelAntesResu.setText("");
+        view.labelBuscar.setText("");
         Integer ide = Integer.valueOf(view.txtCode.getText());
         String ruc = view.txtRuc.getText();
         String nom = view.txtName.getText();
         String dir = view.txtDirection.getText();
         String tel = view.txtPhone.getText();
         distro = new Distribuidor(ide, ruc, nom, dir, tel);
-        indic++; //0
+
         //Seria eliminar indic? Seria implementar un for?
-        elementosEliminados.add(indic, distro);
-        System.out.println("Tamanio de la lista: "+elementosEliminados.size()); //1
-        System.out.println("*********************");
-        System.out.println(elementosEliminados);
-        
-        JOptionPane.showMessageDialog(null, "El indice es: "+indic);
-        
-        JOptionPane.showMessageDialog(null, "La variable guardada es: " + distro);
+        elementosEliminados.push(distro);
+//        System.out.println("Tamanio de la lista: "+elementosEliminados.size()); //1
+//        System.out.println("*********************");
+//        System.out.println(elementosEliminados);
+
+//        JOptionPane.showMessageDialog(null, "El indice es: "+indic);
+//        JOptionPane.showMessageDialog(null, "La variable guardada es: " + distro);
         dao.delete(ide);
         pila.push("deshacerEliminado");
-        listado();
         JOptionPane.showMessageDialog(null, "Eliminación exitosa");
+        listado();
 
         habilitar(false);
     }
@@ -305,6 +319,7 @@ public class DistribuidorController implements ActionListener {
         view.btnAceptarAgregar.setVisible(true);
         view.btnAceptarEliminar.setVisible(false);
     }
+    Stack<Distribuidor> elementosEditados = new Stack();
 
     private void editar() {
 
@@ -329,8 +344,8 @@ public class DistribuidorController implements ActionListener {
             view.txtPhone.setText(view.tableDistri.getValueAt(fila, 4).toString());
             //Obtiene el ultimo
             distriAntiguo = new Distribuidor(Integer.valueOf(view.txtCode.getText()), view.txtRuc.getText(), view.txtName.getText(), view.txtDirection.getText(), view.txtPhone.getText());
-            JOptionPane.showMessageDialog(null, "El distribuidor antes de actualizar es: " + distriAntiguo);
 
+//            JOptionPane.showMessageDialog(null, "El distribuidor antes de actualizar es: " + distriAntiguo);
             view.btnAceptarEditar.setEnabled(true);
             view.btnCancelar.setEnabled(true);
             habilitar(true);
@@ -497,8 +512,7 @@ public class DistribuidorController implements ActionListener {
 
  /*Por el momento 19:30 la pila esta vacia porque en el agregar no he
         realizado la insercion del elemento a la pila*/
-        JOptionPane.showMessageDialog(null, pila);
-        System.out.println(pila);
+//        System.out.println(pila);
         if (!pila.isEmpty()) {
             /*Se elimina la ultima accion*/
 
@@ -517,28 +531,31 @@ public class DistribuidorController implements ActionListener {
                      */
                     pila.pop();
                     listado();
-                    JOptionPane.showMessageDialog(null, "Se elimino la ultima accion");
+                    JOptionPane.showMessageDialog(null, "Se deshizo la agregacion");
                     break;
                 case "deshacerEliminado":
                     /*Necesito tener el id del elemento eliminado*/
-                    JOptionPane.showMessageDialog(null, "El elemento guardadaso: " + distro);
-                    /**
-                     * Necesito un contador que decremente el indice de la lista dependiendo de la cantidad de valores se hayan eliminado.
-                     */
-                    dao.insert(distro);
-                    indic--;
+                    Distribuidor topeEliminado = elementosEliminados.peek();
+//                    JOptionPane.showMessageDialog(null, "El elemento guardadaso: " + topeEliminado);
+
+                    dao.insert(topeEliminado);
+                    elementosEliminados.pop();
                     pila.pop();
                     listado();
+                    JOptionPane.showMessageDialog(null, "Se inserto el elemento eliminado");
                     break;
                 case "deshacerActualizado":
-                    JOptionPane.showMessageDialog(null, distriAntiguo);
-                    dao.update(distriAntiguo);
+
+                    Distribuidor topeEditado = elementosEditados.peek();
+                    dao.update(topeEditado);
+                    elementosEditados.pop();
                     pila.pop();
                     listado();
-                    System.out.println("Se deshizo la actualizacion");
+                    JOptionPane.showMessageDialog(null, "Se deshizo la actualizacion");
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "Error");
+                    break;
             }
 
             listado();

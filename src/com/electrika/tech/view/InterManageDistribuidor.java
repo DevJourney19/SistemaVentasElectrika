@@ -169,8 +169,6 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel2.add(labelAntesResu, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 200, 30));
-
-        labelResultado.setText("fila");
         jPanel2.add(labelResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 380, 50, -1));
 
         btnOrdenar.setBackground(new java.awt.Color(255, 255, 255));

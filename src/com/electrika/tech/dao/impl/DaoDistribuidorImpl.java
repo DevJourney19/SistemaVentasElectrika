@@ -7,9 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.util.ArrayList;
-
 import com.electrika.tech.util.ConectaBD;
-import com.electrika.tech.view.InterManageDistribuidor;
 
 public class DaoDistribuidorImpl implements DaoDistribuidor {
 
@@ -155,26 +153,6 @@ public class DaoDistribuidorImpl implements DaoDistribuidor {
             mensaje = e.getMessage();
         }
         return mensaje;
-    }
-
-    /**
-     * Necesito hacer una función que detecte si la busqueda está vacía o si hay
-     * un elemento. Entonces si necesito los valores nuevos
-     */
-    public Distribuidor recuperarDistribuidor(Integer id) {
-
-        InterManageDistribuidor d = new InterManageDistribuidor();
-        d.txtCode.getText();
-        d.txtRuc.getText();
-        d.txtName.getText();
-        d.txtDirection.getText();
-        d.txtPhone.getText();
-        //----
-        //Hola
-
-        Distribuidor distribuidor = new Distribuidor(id, ruc, nom, dir, tel);
-
-        return distribuidor;
     }
 
     @Override
