@@ -12,6 +12,7 @@ import java.util.Map;
 
 import com.electrika.tech.util.ConectaBD;
 import java.util.Objects;
+import java.util.Stack;
 
 public class DaoVendedorImpl implements DaoVendedor {
 
@@ -19,9 +20,11 @@ public class DaoVendedorImpl implements DaoVendedor {
     private String mensaje;
     private static Map<Integer, Vendedor> empleado;
     private static Integer idEmpleado = null;
+    private Stack<Vendedor> historial;
 
     public DaoVendedorImpl() {
         con = new ConectaBD();
+        historial = new Stack<>();
     }
 
     @Override
@@ -138,7 +141,7 @@ public class DaoVendedorImpl implements DaoVendedor {
                 mensaje = "No hay empleados";
             } else {
                 boolean usuarioPasswordExist = false;
-                
+
                 for (Vendedor ven : empleado.values()) {
                     //Hacer de esta manera para evitar los nulos
                     if (Objects.equals(ven.getUsuario(),vendedor.getUsuario()) || Objects.equals(ven.getPassword(), vendedor.getPassword())) {
@@ -171,6 +174,11 @@ public class DaoVendedorImpl implements DaoVendedor {
     @Override
     public String update(Vendedor vendedor) {
         Vendedor aux = get(vendedor.getCodUsuario());
+        /*if (aux == null) {
+            mensaje = "El vendedor no existe";
+            return null;
+        }
+        historial.push(aux); // Guarda el estado anterior de la pila*/
         StringBuilder sql = new StringBuilder();
         sql.append("UPDATE Vendedor SET ")
                 .append("apellido = ?,")
@@ -182,40 +190,48 @@ public class DaoVendedorImpl implements DaoVendedor {
                 .append("fechaSalida = ?")
                 .append(" WHERE idVendedor = ?");
         try (Connection c = con.getConexion()) {
-            if (aux != null) {
-                boolean usuarioPasswordExist = false;
-                for (Vendedor ven : empleado.values()) {
-                    if (ven.getUsuario().equals(vendedor.getUsuario()) || ven.getPassword().equals(vendedor.getPassword())) {
-                        usuarioPasswordExist = true;
-                        break;
-                    }
+  if (aux != null) {
+            boolean usuarioPasswordExist = false;
+            for (Vendedor ven : empleado.values()) {
+                if (ven.getPassword() != null && ven.getPassword().equals(vendedor.getPassword())) {
+                    usuarioPasswordExist = true;
+                    break;
                 }
-                if (!usuarioPasswordExist) {
-                    PreparedStatement ps = c.prepareStatement(sql.toString());
-                    ps.setString(1, vendedor.getApellidoUsuario());
-                    ps.setString(2, vendedor.getNombreUsuario());
-                    ps.setString(3, vendedor.getPuestoArea());
-                    ps.setString(4, vendedor.getUsuario());
-                    ps.setString(5, vendedor.getPassword());
-                    ps.setString(6, vendedor.getPassword());
-                    ps.setString(7, vendedor.getFechaIngreso());
-                    ps.setString(8, vendedor.getFechaSalida());
-                    ps.setInt(9, vendedor.getCodUsuario());
+            }
+            if (!usuarioPasswordExist) {
+                PreparedStatement ps = c.prepareStatement(sql.toString());
+                ps.setString(1, vendedor.getApellidoUsuario());
+                ps.setString(2, vendedor.getNombreUsuario());
+                ps.setString(3, vendedor.getPuestoArea());
+                ps.setString(4, vendedor.getUsuario());
+                ps.setString(5, vendedor.getPassword());
+                ps.setString(6, vendedor.getPassword());
+                ps.setString(7, vendedor.getFechaIngreso());
+                ps.setString(8, vendedor.getFechaSalida());
+                ps.setInt(9, vendedor.getCodUsuario());
+              //  int result = ps.executeUpdate();
 
                     mensaje = (ps.executeUpdate() == 0) ? "No se actualizó" : "Se actualizó, no te olvides tu contraseña actualizada";
-                } else {
-                    mensaje = "El nombre de usuario o contraseña ya existe";
+            } else {
+                mensaje = "El nombre de usuario o contraseña ya existe";
                 }
-
+               
             }
+
         } catch (Exception e) {
             mensaje = e.getMessage();
         }
-        return mensaje;
+        return mensaje; 
     }
 
     @Override
     public String delete(Integer id) {
+        /*Vendedor ven =get(id);
+        if (ven == null) {
+            mensaje ="El vendedor no existe";
+            return null;
+        }
+        historial.push(ven);// Guarda el estado anterior de la pila*/
         StringBuilder sql = new StringBuilder();
         sql.append("DELETE FROM Vendedor ")
                 .append("WHERE idVendedor = ?");
@@ -264,5 +280,8 @@ public class DaoVendedorImpl implements DaoVendedor {
 
         return ven;
     }
-
+    /*public Vendedor pop(){
+        return historial.isEmpty()? null:historial.pop();
+    }
+*/
 }

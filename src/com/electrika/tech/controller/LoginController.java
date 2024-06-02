@@ -5,19 +5,20 @@ import com.electrika.tech.dao.DaoVendedor;
 import com.electrika.tech.dao.impl.DaoVendedorImpl;
 import com.electrika.tech.entidades.Vendedor;
 import com.electrika.tech.view.HomeView;
+
 import com.electrika.tech.view.LoginView;
 import com.electrika.tech.view.SignInView;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Stack;
 import javax.swing.JOptionPane;
 
 public class LoginController implements ActionListener {
 
     private LoginView view;
     DaoVendedor dao = new DaoVendedorImpl();
-
     public LoginController(LoginView view) {
         this.view = view;
         view.setLocationRelativeTo(null);
@@ -28,6 +29,7 @@ public class LoginController implements ActionListener {
 
     }
 
+  
     public void agregarEventos() {
         view.btnAceptar.addActionListener(this);
         view.btnCancelar.addActionListener(this);
@@ -77,4 +79,6 @@ public class LoginController implements ActionListener {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("com/electrika/tech/img/logo - Copy.png"));
         return retValue;
     }
+
+     
 }

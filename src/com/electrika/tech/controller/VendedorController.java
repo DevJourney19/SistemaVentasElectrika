@@ -1,8 +1,10 @@
 package com.electrika.tech.controller;
 
+import java.util.Stack;
 import com.electrika.tech.dao.DaoVendedor;
 import com.electrika.tech.dao.impl.DaoVendedorImpl;
 import com.electrika.tech.entidades.Vendedor;
+import java.util.Date;
 import com.electrika.tech.util.Ordenamiento;
 import com.electrika.tech.view.InterManageUser;
 import java.awt.event.ActionEvent;
@@ -19,6 +21,8 @@ public class VendedorController implements ActionListener {
     private InterManageUser view;
     DaoVendedor dao;
     DefaultTableModel tabla;
+    //declaracion de stack
+    private Stack<Vendedor> historial = new Stack<>();
 
     public VendedorController(InterManageUser view) {
         this.view = view;
@@ -37,12 +41,12 @@ public class VendedorController implements ActionListener {
         view.btnAceptarEliminar.setVisible(false);
 
         listado();
-        
+
         agregarEventos();
     }
 
     private void agregarEventos() {
-        for (int i = 1; i < tabla.getColumnCount();i++) {
+        for (int i = 1; i < tabla.getColumnCount(); i++) {
             view.jComboValores1.addItem(tabla.getColumnName(i));
         }
         view.btnAceptarAgregar.addActionListener(this);
@@ -93,7 +97,7 @@ public class VendedorController implements ActionListener {
             }
         });
     }
-    
+
     public static String capitalizeFirstLetter(String input) {
         if (input == null || input.isEmpty()) {
             return input; // Devolver el mismo texto si es nulo o vacío
@@ -102,10 +106,10 @@ public class VendedorController implements ActionListener {
         // Convertir la primera letra a mayúscula y concatenar el resto del texto
         return String.format("%s%s", input.substring(0, 1).toUpperCase(), input.substring(1));
     }
-    
+
     private void listado() {
         tabla.setRowCount(0);
-        
+
         view.tableUsers.clearSelection();
         view.txtId.setText(null);
         view.txtNombre.setText(null);
@@ -138,6 +142,10 @@ public class VendedorController implements ActionListener {
         view.btnAgregar.setEnabled(!opc);
         view.btnEditar.setEnabled(!opc);
         view.btnEliminar.setEnabled(!opc);
+        //---------------------------------------------------------------------------------------------//
+        view.informe.setEnabled(opc);
+        //----------------------------------------------------------------------------------------------//
+
     }
 
     private String fechaActual() {
@@ -151,6 +159,17 @@ public class VendedorController implements ActionListener {
         if (view.tableUsers.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "No hay datos para eliminar");
         } else if (fila >= 0) {
+            //---------------------------------------------------------------------------------------------------------------------//
+            //Si hay errores eliminar esto
+            Integer id = Integer.valueOf(view.tableUsers.getValueAt(fila, 0).toString());
+            Vendedor eliminado = dao.get(id);
+            historial.push(eliminado); // Guardar en el historial
+            dao.delete(id);
+            listado();
+            habilitar(false);
+            mostrarUltimoEditadoEnHistorial();
+
+            //-----------------------------------------------------------------------------------------------------------------------------//
             view.btnAceptarEditar.setVisible(false);
             view.btnAceptarAgregar.setVisible(false);
             view.btnAceptarEliminar.setVisible(true);
@@ -179,9 +198,18 @@ public class VendedorController implements ActionListener {
 
     private void aceptarEliminar() {
         Integer id = Integer.valueOf(view.txtId.getText());
+        //dao.delete(id);//
+        //---------------------------------------- eliminar si es necesario
+        Vendedor eliminadoAnteriormente = dao.get(id);
+        if (eliminadoAnteriormente != null) {
+            historial.push(eliminadoAnteriormente);
+        }
         dao.delete(id);
+        //----------------------------------
         listado();
         habilitar(false);
+        //Mostrar el último eliminado en el informe
+        mostrarUltimoEliminadoEnHistorial();
     }
 
     private void aceptarAgregar() {
@@ -195,6 +223,9 @@ public class VendedorController implements ActionListener {
             String contra = view.txtContra.getText();
             String cargo = view.jComboCargo.getSelectedItem().toString();
 
+            /*   // Guardar el estado anterior en la pila
+            Vendedor nuevoVendedor = new Vendedor(null, apellido, nombre, usuario, contra, cargo, "2020-03-25", "2020-03-25");
+            historial.push(nuevoVendedor);*/
             JOptionPane.showMessageDialog(null,
                     dao.insert(new Vendedor(null, apellido, nombre, usuario, contra, cargo, "2020-03-25", "2020-03-25")));
             listado();
@@ -227,12 +258,22 @@ public class VendedorController implements ActionListener {
             String usuario = capitalizeFirstLetter(view.txtUsuario.getText());
             String contra = view.txtContra.getText();
             String cargo = view.jComboCargo.getSelectedItem().toString();
+            //--------------------------------------------------------------------------------------------------------------
+            Vendedor editadoAnteriormente = dao.get(id);
+            if (editadoAnteriormente != null) {
+                historial.push(editadoAnteriormente);
+            }
+            Vendedor vendedorActualizado = new Vendedor(id, apellido, nombre, usuario, contra, cargo, "2020-03-25", "2020-03-25");
+
+            //--------------------------------------------------------------------------------------------------------------
             JOptionPane.showMessageDialog(null,
                     dao.update(new Vendedor(id, apellido, nombre, usuario, contra, cargo, "2020-03-25", "2020-03-25")));
             listado();
             view.txtId.setEnabled(false);
             view.btnBuscar.setEnabled(false);
             habilitar(false);
+            // Mostrar el último editado en el informe
+            mostrarUltimoEditadoEnHistorial();
         }
     }
 
@@ -306,7 +347,7 @@ public class VendedorController implements ActionListener {
         habilitarDatosIngresoSalida(false);
         listado();
     }
-    
+
     private void ordenarTabla() {
         if (view.jComboValores1.getSelectedItem().equals("Elegir valor")) {
             JOptionPane.showMessageDialog(null, "Debes elegir un valor a ordenar");
@@ -365,18 +406,23 @@ public class VendedorController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == view.btnEliminar) {
             eliminar();
+            mostrarUltimoEditadoEnHistorial();
         } else if (e.getSource() == view.btnAceptarEliminar) {
             aceptarEliminar();
+            mostrarUltimoEditadoEnHistorial();
         } else if (e.getSource() == view.btnAgregar) {
             agregar();
         } else if (e.getSource() == view.btnAceptarAgregar) {
             aceptarAgregar();
+            mostrarUltimoEditadoEnHistorial();
         } else if (e.getSource() == view.btnEditar) {
             editar();
         } else if (e.getSource() == view.btnAceptarEditar) {
             aceptarEditar();
+            mostrarUltimoEditadoEnHistorial();
         } else if (e.getSource() == view.btnCancelar) {
             cancelar();
+            mostrarUltimoEditadoEnHistorial();
         } else if (e.getSource() == view.btnBuscar) {
             buscar();
         } else if (e.getSource() == view.registerEntryExit) {
@@ -386,5 +432,27 @@ public class VendedorController implements ActionListener {
         } else if (e.getSource() == view.btnOrdenar) {
             ordenarTabla();
         }
+      
     }
+
+    public void mostrarUltimoEditadoEnHistorial() {
+        if (!historial.isEmpty()) {
+            Vendedor editado = historial.pop();
+            String texto = "Vendedor editado:\n" + editado.toString() + "\n\n";
+            view.informe.setText(texto);
+        } else {
+            view.informe.setText("No hay elementos en el historial");
+        }
+    }
+
+    public void mostrarUltimoEliminadoEnHistorial() {
+        if (!historial.isEmpty()) {
+            Vendedor eliminado = historial.pop();
+            String texto = "Vendedor eliminado:\n" + eliminado.toString() + "\n\n";
+            view.informe.setText(texto);
+        } else {
+            view.informe.setText("No hay elementos en el historial");
+        }
+    }
+
 }

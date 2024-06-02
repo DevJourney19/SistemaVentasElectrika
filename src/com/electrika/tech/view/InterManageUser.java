@@ -5,6 +5,7 @@ public class InterManageUser extends javax.swing.JInternalFrame {
     
     public InterManageUser() {
         initComponents(); 
+       
     }
     
     @SuppressWarnings("unchecked")
@@ -49,6 +50,9 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         btnAscendente = new javax.swing.JRadioButton();
         btnDescendente = new javax.swing.JRadioButton();
         btnOrdenar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        informe = new javax.swing.JTextArea();
+        jLabel8 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
@@ -74,6 +78,11 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         txtNombre.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         txtNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre"));
         txtNombre.setEnabled(false);
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 170, 160, 40));
 
         btnEditar.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
@@ -112,6 +121,11 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         btnAgregar.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
         btnAgregar.setText("Agregar");
         btnAgregar.setFocusPainted(false);
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 450, 100, 30));
 
         registerEntryExit.setBackground(new java.awt.Color(0, 0, 0));
@@ -267,7 +281,6 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 80, 380, 220));
 
         jLabel12.setFont(new java.awt.Font("Trebuchet MS", 1, 30)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Registrar Ingreso y Salida");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 30, -1, 40));
 
@@ -297,6 +310,15 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         btnOrdenar.setText("Ordenar");
         jPanel1.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 470, -1, -1));
 
+        informe.setColumns(20);
+        informe.setRows(5);
+        jScrollPane1.setViewportView(informe);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 510, 610, 70));
+
+        jLabel8.setText("Detalles");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 490, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -305,7 +327,9 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -323,6 +347,14 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jFechaSalidaActionPerformed
 
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnAceptarAgregar;
@@ -338,6 +370,7 @@ public class InterManageUser extends javax.swing.JInternalFrame {
     public javax.swing.JButton btnGuardarEntryExit;
     public javax.swing.JButton btnOrdenar;
     private javax.swing.ButtonGroup buttonGroup1;
+    public javax.swing.JTextArea informe;
     public javax.swing.JComboBox<String> jComboCargo;
     public javax.swing.JComboBox<String> jComboValores1;
     public javax.swing.JFormattedTextField jFechaIngreso;
@@ -350,8 +383,10 @@ public class InterManageUser extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator6;
