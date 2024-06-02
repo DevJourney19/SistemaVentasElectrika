@@ -328,90 +328,78 @@ public class ProductoController implements ActionListener {
         }
     }
 
-    public void ordenarTabla() {
-        if (view.cb_queOrdenar.getSelectedItem().equals("<Seleccionar item>")) {
-            JOptionPane.showMessageDialog(null, "Seleccione un campo a ordenar");
-        } else if (view.rb_asc.isSelected()) {
-            switch (view.cb_queOrdenar.getSelectedIndex()) {
-                case 1 -> {
-                    ordenAscendente(0);
-                    labelBuscar(table.getColumnName(0));
-                }
-                case 2 -> {
-                    ordenAscendente(3);
-                    labelBuscar(table.getColumnName(3));
-                }
-                case 3 -> {
-                    ordenAscendente(4);
-                    labelBuscar(table.getColumnName(4));
-                }
-                default ->
-                    throw new AssertionError();
-            }
+    public void ordenarTabla() { 
+        if (view.cb_queOrdenar.getSelectedItem().equals("<Seleccionar item>")) { 
+            System.out.println(view.cb_queOrdenar.getSelectedItem()); 
+            JOptionPane.showMessageDialog(null, "Seleccione un campo a ordenar"); 
+        } else if (view.rb_asc.isSelected()) { 
+            switch (view.cb_queOrdenar.getSelectedIndex()) { 
+                case 1:  
+                    ordenAscendente(0); 
+                    labelBuscar(table.getColumnName(0)); 
+                    break; 
+                case 2:  
+                    ordenAscendente(3); 
+                    labelBuscar(table.getColumnName(3)); 
+                    break; 
+                case 3:  
+                    ordenAscendente(4); 
+                    labelBuscar(table.getColumnName(4)); 
+                    break; 
+                default: 
+                    throw new AssertionError(); 
+            } 
+//            ordenAscendente(view.cb_queOrdenar.getSelectedIndex()); 
+        } else if (view.rb_desc.isSelected()) { 
+            switch (view.cb_queOrdenar.getSelectedIndex()) { 
+                case 1:  
+                    ordenarDescendente(0); 
+                    labelBuscar(table.getColumnName(0)); 
+                    break; 
 
-//            ordenAscendente(view.cb_queOrdenar.getSelectedIndex());
-        } else if (view.rb_desc.isSelected()) {
-            switch (view.cb_queOrdenar.getSelectedIndex()) {
-                case 1 -> {
-                    ordenarDescendente(0);
-                    labelBuscar(table.getColumnName(0));
-                }
-                case 2 -> {
-                    ordenarDescendente(3);
-                    labelBuscar(table.getColumnName(3));
-                }
-                case 3 -> {
-                    ordenarDescendente(4);
-                    labelBuscar(table.getColumnName(4));
-                }
-                default ->
-                    throw new AssertionError();
-            }
-        }
-        view.txtBuscarB.setEnabled(true);
-        view.btnBuscarB.setEnabled(true);
-    }
+                case 2:  
+                    ordenarDescendente(3); 
+                    labelBuscar(table.getColumnName(3)); 
+                    break;
+                case 3:  
+                    ordenarDescendente(4); 
+                    labelBuscar(table.getColumnName(4)); 
+                    break; 
+                default: 
+                    throw new AssertionError(); 
+            } 
+        } 
+        view.txtBuscarB.setEnabled(true); 
+        view.btnBuscarB.setEnabled(true); 
+    } 
 
     public void labelBuscar(String nombre) {
         view.labelBuscar.setText(nombre);
     }
 
-    public void ordenAscendente(Integer columnIndex) {
-        Integer filas = table.getRowCount(); //la cantidad de filas de la tabla
-        Object[] filasV = new Object[filas];
+    public void ordenAscendente(Integer columnIndex) {     
+        Stack<Object[]> filasV = new Stack<>(); 
+        for (int i = 0; i < table.getRowCount(); i++) { 
+            filasV.add(table.getDataVector().get(i).toArray()); 
+        } 
+        Collections.sort(filasV, (a, b) -> ((Comparable<Object>) b[columnIndex]).compareTo(a[columnIndex])); 
+        table.setRowCount(0); 
+        while (!filasV.isEmpty()) { 
+            table.addRow(filasV.pop()); 
+        } 
+    } 
 
-        for (int i = 0; i < filasV.length; i++) {
-            /* Los valores extraidos de la tabla lo agregamos a un vector para 
-            poder guardarlo en la variable filasV*/
-            filasV[i] = table.getDataVector().get(i).toArray();
-        }
-
-        Ordenamiento.sort(filasV, 0, filasV.length - 1, columnIndex, "ascendente");
-//        Ordenamiento.quickSort(filasV, 0, filasV.length - 1, columnIndex, "ascendente");
-
-        table.setRowCount(0);
-        for (Object o : filasV) {
-            table.addRow((Object[]) o);
-        }
-    }
-
-    public void ordenarDescendente(int columnIndex) {
-        Integer filas = table.getRowCount(); //la cantidad de filas de la tabla
-        Object[] filasV = new Object[filas];
-
-        for (int i = 0; i < filasV.length; i++) {
-            /* Los valores extraidos de la tabla lo agregamos a un vector para 
-            poder guardarlo en la variable filasV*/
-            filasV[i] = table.getDataVector().get(i).toArray();
-        }
-        Ordenamiento.sort(filasV, 0, filasV.length - 1, columnIndex, "descendente");
-//        Ordenamiento.quickSort(filasV, 0, filasV.length - 1, columnIndex, "descendente");
-
-        table.setRowCount(0);
-        for (Object o : filasV) {
-            table.addRow((Object[]) o);
-        }
-    }
+    public void ordenarDescendente(int columnIndex) { 
+        Stack<Object[]> filasV = new Stack<>(); 
+        for (int i = 0; i < table.getRowCount(); i++) { 
+            filasV.push(table.getDataVector().get(i).toArray()); 
+        } 
+        Collections.sort(filasV, (a, b) -> ((Comparable<Object>) a[columnIndex]).compareTo(b[columnIndex])); 
+        table.setRowCount(0); 
+        while (!filasV.isEmpty()) { 
+            table.addRow(filasV.pop()); 
+        } 
+    } 
 
     public void binario() {
 
@@ -435,33 +423,28 @@ public class ProductoController implements ActionListener {
         }
     }
 
-    public void busquedaBinaria(Integer columnIndex) {
+    public void busquedaBinaria(Integer columnIndex) { 
+        Queue<String> columnValues = new LinkedList<>(); 
+        for (int i = 0; i < table.getRowCount(); i++) { 
+            columnValues.add(String.valueOf(table.getValueAt(i, columnIndex))); 
+        } 
 
-        Integer filas = table.getRowCount(); //la cantidad de filas de la tabla
-        List<String> columnValues = new ArrayList<>();
-
-        for (int i = 0; i < filas; i++) {
-            columnValues.add(String.valueOf(table.getValueAt(i, columnIndex)));
-        }
-
-        try {
-            double valor = Double.valueOf(view.txtBuscarB.getText());
-            Integer resultado = Busqueda.busquedaBinariaNumeric(columnValues, valor);
-            if (resultado != null) {
-                view.labelAntesResu.setText(String.format("%s se encuentra en la fila:", view.txtBuscarB.getText()));
-                view.labelResultado.setText(String.valueOf((resultado + 1)));
-                view.labelAntesResu.setVisible(true);
-                view.labelResultado.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró su búsqueda");
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El texto ingresado no es un numero valido");
-        }
-
-        view.txtBuscarB.setText("");
-
-    }
+        try { 
+            double valor = Double.parseDouble(view.txtBuscarB.getText()); 
+            Integer resultado = Busqueda.busquedaBinariaNumeric((List<String>) columnValues, valor); 
+            if (resultado!= null) { 
+                view.labelAntesResu.setText(String.format("%s se encuentra en la fila:", view.txtBuscarB.getText())); 
+                view.labelResultado.setText(String.valueOf((resultado + 1))); 
+                view.labelAntesResu.setVisible(true); 
+                view.labelResultado.setVisible(true); 
+            } else { 
+                JOptionPane.showMessageDialog(null, "No se encontró su búsqueda"); 
+            } 
+        } catch (NumberFormatException e) { 
+            JOptionPane.showMessageDialog(null, "El texto ingresado no es un numero valido"); 
+        } 
+        view.txtBuscarB.setText(""); 
+    } 
 
     @Override
     public void actionPerformed(ActionEvent e) {
