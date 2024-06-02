@@ -47,6 +47,7 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         txtBuscarB = new javax.swing.JTextField();
         btnBuscarB = new javax.swing.JButton();
+        btnDeshacer = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -121,7 +122,6 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
         jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 110, 150, -1));
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrika/tech/img/lupa1.png"))); // NOI18N
-        btnBuscar.setEnabled(false);
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -166,8 +166,6 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel2.add(labelAntesResu, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 200, 30));
-
-        labelResultado.setText("fila");
         jPanel2.add(labelResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 380, 50, -1));
 
         btnOrdenar.setText("Ordenar");
@@ -216,6 +214,9 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 80, 350, 490));
 
+        btnDeshacer.setText("Deshacer");
+        jPanel1.add(btnDeshacer, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 263, 150, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -253,6 +254,7 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
     public javax.swing.JButton btnBuscar;
     public javax.swing.JButton btnBuscarB;
     public javax.swing.JButton btnCancelar;
+    public javax.swing.JButton btnDeshacer;
     public javax.swing.JButton btnEditar;
     public javax.swing.JButton btnEliminar;
     public javax.swing.JButton btnOrdenar;

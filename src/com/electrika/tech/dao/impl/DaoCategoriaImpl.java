@@ -2,6 +2,7 @@ package com.electrika.tech.dao.impl;
 
 import com.electrika.tech.dao.DaoCategoria;
 import com.electrika.tech.entidades.Categoria;
+import com.electrika.tech.entidades.Distribuidor;
 import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

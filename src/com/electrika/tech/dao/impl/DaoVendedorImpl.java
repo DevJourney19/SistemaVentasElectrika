@@ -144,7 +144,7 @@ public class DaoVendedorImpl implements DaoVendedor {
 
                 for (Vendedor ven : empleado.values()) {
                     //Hacer de esta manera para evitar los nulos
-                    if (Objects.equals(ven.getUsuario(),vendedor.getUsuario()) || Objects.equals(ven.getPassword(), vendedor.getPassword())) {
+                    if (Objects.equals(ven.getUsuario(), vendedor.getUsuario()) || Objects.equals(ven.getPassword(), vendedor.getPassword())) {
                         usuarioPasswordExist = true;
                         break;
                     }
