@@ -310,14 +310,16 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         btnOrdenar.setText("Ordenar");
         jPanel1.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 470, -1, -1));
 
+        informe.setEditable(false);
         informe.setColumns(20);
         informe.setRows(5);
+        informe.setEnabled(false);
         jScrollPane1.setViewportView(informe);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 510, 610, 70));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 510, 630, 110));
 
         jLabel8.setText("Detalles");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 490, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 490, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
