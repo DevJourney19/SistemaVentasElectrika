@@ -57,7 +57,6 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
 
-        tableDistri.setBackground(new java.awt.Color(255, 255, 255));
         tableDistri.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -79,7 +78,6 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, 740, 240));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Gestionar Distribuidor");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, -1, -1));
 
@@ -150,7 +148,6 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Buscar en la columna");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 370, 150, 30));
 
@@ -171,13 +168,9 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
         jPanel2.add(labelAntesResu, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 200, 30));
         jPanel2.add(labelResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 380, 50, -1));
 
-        btnOrdenar.setBackground(new java.awt.Color(255, 255, 255));
-        btnOrdenar.setForeground(new java.awt.Color(0, 0, 0));
         btnOrdenar.setText("Ordenar");
         jPanel2.add(btnOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, -1, -1));
 
-        cb_queOrdenar.setBackground(new java.awt.Color(255, 255, 255));
-        cb_queOrdenar.setForeground(new java.awt.Color(0, 0, 0));
         cb_queOrdenar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Seleccionar item>" }));
         jPanel2.add(cb_queOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 140, -1));
 
@@ -194,7 +187,6 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
 
         rb_asc.setBackground(new java.awt.Color(255, 255, 255));
         botones.add(rb_asc);
-        rb_asc.setForeground(new java.awt.Color(0, 0, 0));
         rb_asc.setText("Ascendente");
         rb_asc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         rb_asc.setEnabled(false);
@@ -202,19 +194,20 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
 
         rb_desc.setBackground(new java.awt.Color(255, 255, 255));
         botones.add(rb_desc);
-        rb_desc.setForeground(new java.awt.Color(0, 0, 0));
         rb_desc.setText("Descendente");
         rb_desc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         rb_desc.setEnabled(false);
         jPanel2.add(rb_desc, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, -1, -1));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 250, 20));
 
-        txtBuscarB.setBackground(new java.awt.Color(255, 255, 255));
         txtBuscarB.setEnabled(false);
+        txtBuscarB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarBActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtBuscarB, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 150, -1));
 
-        btnBuscarB.setBackground(new java.awt.Color(255, 255, 255));
-        btnBuscarB.setForeground(new java.awt.Color(0, 0, 0));
         btnBuscarB.setText("Buscar");
         btnBuscarB.setEnabled(false);
         jPanel2.add(btnBuscarB, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, -1, -1));
@@ -246,6 +239,10 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
     private void txtPhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhoneActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPhoneActionPerformed
+
+    private void txtBuscarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarBActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
