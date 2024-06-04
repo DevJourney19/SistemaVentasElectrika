@@ -28,7 +28,7 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Stack;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -595,11 +595,11 @@ public class PedidoController implements ActionListener {
                     //==========================================================
                     //UPDATE EL PRODUCTO CON TAL CODIGO
                     JOptionPane.showMessageDialog(null,
-                            pro.update(new Producto(p.getCodProducto(), p.getNombreProducto(), p.getDescripcionProducto(), cantidadStock, p.getPrecioUnidad(), p.getCategoria(), p.getDistribuidor())));
+                            pro.update(new Producto(p.getCodProducto().intValue(), p.getNombreProducto(), p.getDescripcionProducto(), cantidadStock, p.getPrecioUnidad(), p.getCategoria(), p.getDistribuidor())));
                     resulPagar = canti * precioProdu;
                     //suma += resulPagar; //Y esta suma va para PedidoFrame
                     JOptionPane.showMessageDialog(null,
-                            detaPedi.insert(new DetallePedido(null, 0, p, canti, resulPagar)));
+                            detaPedi.insert(new DetallePedido(null, null, p, canti, resulPagar)));
                     habilitar2(false);
                     view.btnEditar.setEnabled(true);
                     view.btnEliminar1.setEnabled(true);
