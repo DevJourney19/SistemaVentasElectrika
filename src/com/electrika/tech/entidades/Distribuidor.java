@@ -66,6 +66,4 @@ public class Distribuidor {
         return "Distribuidor{" + "idDistribuidor=" + idDistribuidor + ", ruc=" + ruc + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + '}';
     }
 
-    
-
 }

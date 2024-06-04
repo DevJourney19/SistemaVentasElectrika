@@ -76,18 +76,16 @@ public class DaoDetallePedImpl implements DaoDetallePedido {
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO DetallePedido(")
                 .append("cantidadProducto,")
-                .append("subtotal,")
-                .append("idPedido,")
+                .append("subtotal,")               
                 .append("idProducto")
-                .append(") VALUES (?,?,?,?)");
+                .append(") VALUES (?,?,?)");
 
         try (Connection c = con.getConexion()) {
 
             PreparedStatement ps = c.prepareStatement(sql.toString(), java.sql.Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, (categoria.getCantidadProducto()));
             ps.setDouble(2, categoria.getPagar());
-            ps.setInt(3, categoria.getIdPedi());
-            ps.setInt(4, categoria.getProducto().getCodProducto());
+            ps.setInt(3, categoria.getProducto().getCodProducto());
             int affectedRows = ps.executeUpdate();
 
             if (affectedRows > 0) {
