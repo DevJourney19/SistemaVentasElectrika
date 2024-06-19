@@ -5,6 +5,7 @@ import com.electrika.tech.dao.impl.DaoDistribuidorImpl;
 import com.electrika.tech.entidades.Distribuidor;
 import com.electrika.tech.util.Busqueda;
 import com.electrika.tech.util.Ordenamiento;
+import com.electrika.tech.util.ResourceBundleManager;
 import com.electrika.tech.view.InterManageDistribuidor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +16,8 @@ import java.util.List;
 import java.util.Stack;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.util.ResourceBundle;
+import javax.swing.DefaultComboBoxModel;
 
 public class DistribuidorController implements ActionListener {
 
@@ -24,9 +27,8 @@ public class DistribuidorController implements ActionListener {
     DefaultTableModel tabla;
     private InterManageDistribuidor view;
     Stack<String> pila;
-//    Distribuidor distro = null;
     Distribuidor distriAntiguo = null;
-//    Integer indic = -1;
+    ResourceBundle bundle;
 
     public DistribuidorController(InterManageDistribuidor view) {
         this.view = view;
@@ -41,8 +43,9 @@ public class DistribuidorController implements ActionListener {
         view.btnAceptarEliminar.setVisible(false);
         view.labelAntesResu.setVisible(false);
         view.labelResultado.setVisible(false);
-        listado();
+        asignarLenguaje();
         agregarEventos();
+        listado();
     }
 
     private void agregarEventos() {
@@ -148,7 +151,6 @@ public class DistribuidorController implements ActionListener {
 
         // Convertir la primera letra a mayúscula y concatenar el resto del texto
         return String.format("%s%s", input.substring(0, 1).toUpperCase(), input.substring(1).toLowerCase());
-
     }
 
     private void listado() {
@@ -185,12 +187,11 @@ public class DistribuidorController implements ActionListener {
         view.btnAgregar.setEnabled(!opc);
         view.btnEditar.setEnabled(!opc);
         view.btnEliminar.setEnabled(!opc);
-
     }
 
     private void aceptarAgregar() {
         // TODO add your handling ide here:
-        view.cb_queOrdenar.setSelectedItem("<Seleccionar item>");
+        view.cb_queOrdenar.setSelectedItem("<Select item>");
         view.labelResultado.setText(" ");
         view.labelAntesResu.setText("");
         view.labelBuscar.setText("");
@@ -285,14 +286,7 @@ public class DistribuidorController implements ActionListener {
         String tel = view.txtPhone.getText();
         distro = new Distribuidor(ide, ruc, nom, dir, tel);
 
-        //Seria eliminar indic? Seria implementar un for?
         elementosEliminados.push(distro);
-//        System.out.println("Tamanio de la lista: "+elementosEliminados.size()); //1
-//        System.out.println("*********************");
-//        System.out.println(elementosEliminados);
-
-//        JOptionPane.showMessageDialog(null, "El indice es: "+indic);
-//        JOptionPane.showMessageDialog(null, "La variable guardada es: " + distro);
         dao.delete(ide);
         pila.push("deshacerEliminado");
         JOptionPane.showMessageDialog(null, "Eliminación exitosa");
@@ -492,7 +486,7 @@ public class DistribuidorController implements ActionListener {
 
         if (resultado != null) {
 
-            view.labelAntesResu.setText(String.format("%s se encuentra en la fila:", view.txtBuscarB.getText()));
+            view.labelAntesResu.setText(view.txtBuscarB.getText() + " " + bundle.getString("labelLocated"));
             view.labelResultado.setText(String.valueOf((resultado + 1)));
             view.labelAntesResu.setVisible(true);
             view.labelResultado.setVisible(true);
@@ -564,6 +558,60 @@ public class DistribuidorController implements ActionListener {
 //            System.out.println("No se puede realizar mas cambios");
         }
     } //Fin del metodo deshacer
+
+    public void asignarLenguaje() {
+        /**
+         * Se creó una clase ResourseBundleManager para poder almacenar los
+         * valores que se obtuvieron en el login.
+         */
+        bundle = ResourceBundleManager.getBundle();
+        //Se actualiza el lenguaje de los nombres de los elementos del Java Swing
+        view.jLabel1.setText(bundle.getString("title"));
+        view.jLabelName.setText(bundle.getString("name"));
+        view.jLabelAddress.setText(bundle.getString("address"));
+        view.jLabelPhone.setText(bundle.getString("phone"));
+        view.jLabelCode.setText(bundle.getString("code"));
+        view.btnAgregar.setText(bundle.getString("add"));
+        view.btnEditar.setText(bundle.getString("edit"));
+        view.btnEliminar.setText(bundle.getString("delete"));
+        view.btnDeshacer.setText(bundle.getString("undo"));
+        view.btnAceptarAgregar.setText(bundle.getString("bAccept"));
+        view.btnAceptarEditar.setText(bundle.getString("bAccept"));
+        view.btnAceptarEliminar.setText(bundle.getString("bAccept"));
+        view.btnCancelar.setText(bundle.getString("bCancel"));
+        //Cuadros del sort y search
+        view.jLabelTsort.setText(bundle.getString("sort"));
+        view.jLabel6.setText(bundle.getString("wField"));
+        view.rb_asc.setText(bundle.getString("asc"));
+        view.rb_desc.setText(bundle.getString("desc"));
+        view.btnOrdenar.setText(bundle.getString("sort"));
+        view.jLabel5.setText(bundle.getString("search"));
+        view.jLabel3.setText(bundle.getString("searchColu"));
+        view.btnBuscarB.setText(bundle.getString("search"));
+
+        //Cambiar titulos del encabezado de la tabla
+        String[] titulos = {bundle.getString("code"), "RUC", bundle.getString("name"),
+            bundle.getString("address"), bundle.getString("phone")};
+        tabla.setColumnIdentifiers(titulos);
+        view.tableDistri.setModel(tabla);
+
+        //Cambiar información del jcombobox
+        // Obtener el modelo del JComboBox
+        DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) view.cb_queOrdenar.getModel();
+
+        // Índice del elemento que queremos modificar (por ejemplo, el primer elemento)
+        int indexToModify = 0;
+
+        // Nuevo valor para el elemento
+        String newValue = bundle.getString("sItem");
+
+        // Modificar el elemento en el modelo
+        model.removeElementAt(indexToModify);
+        model.insertElementAt(newValue, indexToModify);
+        //Que se muestre el elemento como si se hubiese seleccionado 
+        view.cb_queOrdenar.setSelectedIndex(indexToModify);
+
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
