@@ -54,32 +54,25 @@ public class LoginController implements ActionListener {
         view.cbLenguaje.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int selectIndex = view.cbLenguaje.getSelectedIndex();
-
+                Locale locale;
+                ResourceBundle bundle;
+            
                 switch (selectIndex) {
                     case 0 -> {
-                        Locale locale = new Locale("en", "EN");
-                        ResourceBundle bundle
-                                = ResourceBundle.getBundle("com.electrika.tech.properties/distribuidor", locale);
-                        ResourceBundleManager.setBundle(bundle);
+                        locale = new Locale("en", "EN");   
                     }
                     case 1 -> {
-                        Locale locale = new Locale("es", "ES");
-                        ResourceBundle bundle
-                                = ResourceBundle.getBundle("com.electrika.tech.properties/distribuidor", locale);
-                        ResourceBundleManager.setBundle(bundle);
+                        locale = new Locale("es", "ES");                  
                     }
                     case 2 -> {
-                        Locale locale = new Locale("pt", "PT");
-                        ResourceBundle bundle
-                                = ResourceBundle.getBundle("com.electrika.tech.properties/distribuidor", locale);
-                        ResourceBundleManager.setBundle(bundle);
+                        locale = new Locale("pt", "PT");
                     }
                     default -> {
-                        System.out.println("Seleccione un lenguaje valido");
+                        System.out.println("Error");
                     }
-
                 }
-
+                bundle=ResourceBundle.getBundle("com.electrika.tech.properties/distribuidor", locale);
+                ResourceBundleManager.setBundle(bundle);
             }
         }
         );
