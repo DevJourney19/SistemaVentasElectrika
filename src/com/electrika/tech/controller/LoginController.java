@@ -54,7 +54,7 @@ public class LoginController implements ActionListener {
         view.cbLenguaje.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int selectIndex = view.cbLenguaje.getSelectedIndex();
-                Locale locale;
+                Locale locale=null;
                 ResourceBundle bundle;
             
                 switch (selectIndex) {
