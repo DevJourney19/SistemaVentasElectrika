@@ -4,6 +4,7 @@ import com.electrika.tech.dao.DaoCliente;
 import com.electrika.tech.dao.impl.*;
 import com.electrika.tech.entidades.Cliente;
 import com.electrika.tech.util.Busqueda;
+import com.electrika.tech.util.LocaleManager;
 import com.electrika.tech.util.Ordenamiento;
 import com.electrika.tech.view.InterManageClient;
 import java.awt.event.ActionEvent;
@@ -12,8 +13,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.Stack;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,6 +27,8 @@ public class ClienteController implements ActionListener {
     DefaultTableModel tabla;
     private InterManageClient view;
     private Stack<Cliente> stack = new Stack<>();
+    Locale locale = LocaleManager.getLocale();
+    ResourceBundle bundle = ResourceBundle.getBundle("com.electrika.tech.properties/cliente", locale);
 
     public ClienteController(InterManageClient view) {
         this.view = view;
@@ -33,6 +39,7 @@ public class ClienteController implements ActionListener {
         view.btnAceptarEditar.setVisible(false);
         view.btnAceptarEliminar.setVisible(false);
         listado();
+        asignarLenguaje();
         agregarEventos();
     }
 
@@ -129,6 +136,59 @@ public class ClienteController implements ActionListener {
                 }
             }
         });
+    }
+
+    public void asignarLenguaje() {
+        /**
+         * Se creó una clase ResourseBundleManager para poder almacenar los
+         * valores que se obtuvieron en el login.
+         */
+        //Se actualiza el lenguaje de los nombres de los elementos del Java Swing
+        view.jLabel4.setText(bundle.getString("title"));
+        view.jLabelNombre.setText(bundle.getString("name"));        
+        view.jLabelApellido.setText(bundle.getString("lastname"));
+        view.jLabelCorreo.setText(bundle.getString("address"));
+        view.jLabelTelefono.setText(bundle.getString("phone"));
+        view.jLabelId.setText(bundle.getString("id"));
+        view.btnAgregar.setText(bundle.getString("add"));
+        view.btnEditar.setText(bundle.getString("edit"));
+        view.btnEliminar.setText(bundle.getString("delete"));
+        view.btnAceptarAgregar.setText(bundle.getString("bAccept"));
+        view.btnAceptarEditar.setText(bundle.getString("bAccept"));
+        view.btnAceptarEliminar.setText(bundle.getString("bAccept"));
+        view.btnCancelar.setText(bundle.getString("bCancel"));
+        //Cuadros del sort y search
+        view.jLabel7.setText(bundle.getString("sortTitle"));        
+        view.jLabel3.setText(bundle.getString("sortDescription"));
+        view.btnOrdenar.setText(bundle.getString("sort"));
+        view.btnAscendente.setText(bundle.getString("asc"));
+        view.btnDescendente.setText(bundle.getString("desc"));
+        view.btnOrdenar.setText(bundle.getString("sort"));
+        view.jLabel6.setText(bundle.getString("searchTitle"));
+        view.jLabel8.setText(bundle.getString("searchColu"));
+        view.btnBuscarData.setText(bundle.getString("search"));
+
+        //Cambiar titulos del encabezado de la tabla
+        String[] titulos = {bundle.getString("id"), "Dni", bundle.getString("name"), bundle.getString("lastname"), bundle.getString("phone"), bundle.getString("address")};
+        tabla.setColumnIdentifiers(titulos);
+        view.tableClients.setModel(tabla);
+
+        //Cambiar información del jcombobox
+        // Obtener el modelo del JComboBox
+        DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) view.jComboValores1.getModel();
+
+        // Índice del elemento que queremos modificar (por ejemplo, el primer elemento)
+        int indexToModify = 0;
+
+        // Nuevo valor para el elemento
+        String newValue = bundle.getString("sItem");
+
+        // Modificar el elemento en el modelo
+        model.removeElementAt(indexToModify);
+        model.insertElementAt(newValue, indexToModify);
+        //Que se muestre el elemento como si se hubiese seleccionado 
+        view.jComboValores1.setSelectedIndex(indexToModify);
+
     }
 
     public static String capitalizeFirstLetter(String input) {
@@ -272,13 +332,13 @@ public class ClienteController implements ActionListener {
 
         Integer id = Integer.valueOf(view.txtId.getText());
         boolean encontrado = false;
-        for(Cliente buscar:stack){
-            if(buscar.getCodUsuario().equals(id)){
+        for (Cliente buscar : stack) {
+            if (buscar.getCodUsuario().equals(id)) {
                 encontrado = true;
                 break;
             }
         }
-        
+
         if (encontrado) {
             habilitar(true);
             Cliente cli = dao.get(id);
@@ -412,9 +472,10 @@ public class ClienteController implements ActionListener {
             Integer index = Busqueda.busquedaBinaria(data, valor);
             if (index != null && index >= 0 && index < data.size()) {
                 StringBuilder rowDataString = new StringBuilder();
-                rowDataString.append("Se encuentra en el indice: ")
+                rowDataString.append(bundle.getString("labelLocated"))
                         .append(index)
-                        .append("\nValor buscado: ")
+                        .append("\n")
+                        .append(bundle.getString("labelSearch"))
                         .append(valor)
                         .append(" - ")
                         .append(view.labelColumna.getText());

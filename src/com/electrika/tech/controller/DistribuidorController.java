@@ -5,7 +5,7 @@ import com.electrika.tech.dao.impl.DaoDistribuidorImpl;
 import com.electrika.tech.entidades.Distribuidor;
 import com.electrika.tech.util.Busqueda;
 import com.electrika.tech.util.Ordenamiento;
-import com.electrika.tech.util.ResourceBundleManager;
+import com.electrika.tech.util.LocaleManager;
 import com.electrika.tech.view.InterManageDistribuidor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.ResourceBundle;
 import javax.swing.DefaultComboBoxModel;
+import java.util.Locale;
 
 public class DistribuidorController implements ActionListener {
 
@@ -28,7 +29,8 @@ public class DistribuidorController implements ActionListener {
     private InterManageDistribuidor view;
     Stack<String> pila;
     Distribuidor distriAntiguo = null;
-    ResourceBundle bundle;
+    Locale locale = LocaleManager.getLocale();
+    ResourceBundle bundle = ResourceBundle.getBundle("com.electrika.tech.properties/distribuidor", locale);
 
     public DistribuidorController(InterManageDistribuidor view) {
         this.view = view;
@@ -564,7 +566,6 @@ public class DistribuidorController implements ActionListener {
          * Se creó una clase ResourseBundleManager para poder almacenar los
          * valores que se obtuvieron en el login.
          */
-        bundle = ResourceBundleManager.getBundle();
         //Se actualiza el lenguaje de los nombres de los elementos del Java Swing
         view.jLabel1.setText(bundle.getString("title"));
         view.jLabelName.setText(bundle.getString("name"));

@@ -4,7 +4,7 @@ package com.electrika.tech.controller;
 import com.electrika.tech.dao.DaoVendedor;
 import com.electrika.tech.dao.impl.DaoVendedorImpl;
 import com.electrika.tech.entidades.Vendedor;
-import com.electrika.tech.util.ResourceBundleManager;
+import com.electrika.tech.util.LocaleManager;
 import com.electrika.tech.view.HomeView;
 
 import com.electrika.tech.view.LoginView;
@@ -23,7 +23,7 @@ public class LoginController implements ActionListener {
     //Cambiamos a static, para poder llamar al metodo lenguaje 19/06/24
     private LoginView view;
     DaoVendedor dao = new DaoVendedorImpl();
-    private ResourceBundle bundle;
+    public Locale locale;
 
     public LoginController(LoginView view) {
         this.view = view;
@@ -40,10 +40,8 @@ public class LoginController implements ActionListener {
      * (Es una buena comprobación cuando el usuario no seleccione algún idioma)
      */
     public void lenguajeDefecto() {
-        Locale locale = new Locale("en", "EN");
-        ResourceBundle bundle
-                = ResourceBundle.getBundle("com.electrika.tech.properties/distribuidor", locale);
-        ResourceBundleManager.setBundle(bundle);
+        locale = new Locale("en", "EN");
+        LocaleManager.setLocale(locale);
     }
 
     //Método escoger lenguaje
@@ -54,8 +52,6 @@ public class LoginController implements ActionListener {
         view.cbLenguaje.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int selectIndex = view.cbLenguaje.getSelectedIndex();
-                Locale locale=null;
-                ResourceBundle bundle;
             
                 switch (selectIndex) {
                     case 0 -> {
@@ -71,8 +67,7 @@ public class LoginController implements ActionListener {
                         System.out.println("Error");
                     }
                 }
-                bundle=ResourceBundle.getBundle("com.electrika.tech.properties/distribuidor", locale);
-                ResourceBundleManager.setBundle(bundle);
+                LocaleManager.setLocale(locale);
             }
         }
         );

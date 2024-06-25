@@ -31,10 +31,7 @@ public class InterManageClient extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tableClients1 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         btnOrdenar = new javax.swing.JButton();
         btnAscendente = new javax.swing.JRadioButton();
         btnDescendente = new javax.swing.JRadioButton();
@@ -48,6 +45,12 @@ public class InterManageClient extends javax.swing.JInternalFrame {
         jComboValores1 = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         labelColumna = new javax.swing.JLabel();
+        jLabelId = new javax.swing.JLabel();
+        jLabelApellido = new javax.swing.JLabel();
+        jLabelNombre = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabelTelefono = new javax.swing.JLabel();
+        jLabelCorreo = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -79,9 +82,8 @@ public class InterManageClient extends javax.swing.JInternalFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, 880, 220));
 
         txtId.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        txtId.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Id Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
         txtId.setEnabled(false);
-        jPanel1.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 100, 110, 40));
+        jPanel1.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, 110, 30));
 
         btnEliminar.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrika/tech/img/basura.png"))); // NOI18N
@@ -91,9 +93,8 @@ public class InterManageClient extends javax.swing.JInternalFrame {
         jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 200, 130, 40));
 
         txtNombre.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        txtNombre.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nombre", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
         txtNombre.setEnabled(false);
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 170, 40));
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 170, 30));
 
         btnEditar.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrika/tech/img/editar-codigo.png"))); // NOI18N
@@ -103,14 +104,12 @@ public class InterManageClient extends javax.swing.JInternalFrame {
         jPanel1.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 150, 130, 40));
 
         txtApellido.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        txtApellido.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Apellido", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
         txtApellido.setEnabled(false);
-        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 170, 170, 40));
+        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 180, 170, 30));
 
         txtCorreo.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        txtCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Correo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
         txtCorreo.setEnabled(false);
-        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, 370, 40));
+        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 250, 370, 30));
 
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/electrika/tech/img/informacion.png"))); // NOI18N
@@ -125,14 +124,12 @@ public class InterManageClient extends javax.swing.JInternalFrame {
         jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 100, 130, 40));
 
         txtTelefono.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        txtTelefono.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Teléfono", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
         txtTelefono.setEnabled(false);
-        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, 170, 40));
+        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, 170, 30));
 
         txtDni.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        txtDni.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dni", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
         txtDni.setEnabled(false);
-        jPanel1.add(txtDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 160, 40));
+        jPanel1.add(txtDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, 160, 30));
 
         btnAceptarAgregar.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         btnAceptarAgregar.setForeground(new java.awt.Color(51, 51, 51));
@@ -167,34 +164,9 @@ public class InterManageClient extends javax.swing.JInternalFrame {
         jLabel3.setText("Tienes que elegir el valor que deseas ordenar");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 90, -1, -1));
 
-        tableClients1.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        tableClients1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Id", "Dni", "Nombre", "Apellido", "Teléfono", "Correo"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(tableClients1);
-
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, 880, 220));
-
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 1, 48)); // NOI18N
         jLabel4.setText("Gestionar Clientes");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Trebuchet MS", 1, 48)); // NOI18N
-        jLabel5.setText("Gestionar Clientes");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, -1));
 
         btnOrdenar.setText("Ordenar");
         btnOrdenar.setEnabled(false);
@@ -252,6 +224,36 @@ public class InterManageClient extends javax.swing.JInternalFrame {
         labelColumna.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jPanel1.add(labelColumna, new org.netbeans.lib.awtextra.AbsoluteConstraints(1410, 370, 110, 20));
 
+        jLabelId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabelId.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelId.setText("Id Cliente");
+        jPanel1.add(jLabelId, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, -1, -1));
+
+        jLabelApellido.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabelApellido.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelApellido.setText("Apellido");
+        jPanel1.add(jLabelApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, -1, -1));
+
+        jLabelNombre.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabelNombre.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelNombre.setText("Nombre");
+        jPanel1.add(jLabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, -1, -1));
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setText("Dni");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, -1, -1));
+
+        jLabelTelefono.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabelTelefono.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelTelefono.setText("Telefono");
+        jPanel1.add(jLabelTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, -1, -1));
+
+        jLabelCorreo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabelCorreo.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelCorreo.setText("Correo");
+        jPanel1.add(jLabelCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 230, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -286,21 +288,24 @@ public class InterManageClient extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     public javax.swing.JComboBox<String> jComboValores1;
     private javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    public javax.swing.JLabel jLabel3;
+    public javax.swing.JLabel jLabel4;
+    public javax.swing.JLabel jLabel6;
+    public javax.swing.JLabel jLabel7;
+    public javax.swing.JLabel jLabel8;
+    public javax.swing.JLabel jLabelApellido;
+    public javax.swing.JLabel jLabelCorreo;
+    public javax.swing.JLabel jLabelId;
+    public javax.swing.JLabel jLabelNombre;
+    public javax.swing.JLabel jLabelTelefono;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     public javax.swing.JLabel labelColumna;
     public javax.swing.JTable tableClients;
-    public javax.swing.JTable tableClients1;
     public javax.swing.JTextField txtApellido;
     public javax.swing.JTextField txtCorreo;
     public javax.swing.JTextField txtData;
