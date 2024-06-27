@@ -53,6 +53,12 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         informe = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
@@ -65,52 +71,57 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         jLabel1.setText("Gestionar Usuarios");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, -1, -1));
 
+        txtId.setBackground(new java.awt.Color(219, 243, 255));
         txtId.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        txtId.setBorder(javax.swing.BorderFactory.createTitledBorder("Id"));
+        txtId.setBorder(null);
         txtId.setEnabled(false);
-        jPanel1.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 110, 50, 40));
+        jPanel1.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 120, 50, 40));
 
         btnEliminar.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.setFocusPainted(false);
-        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 450, 100, 30));
+        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 480, 100, 30));
 
+        txtNombre.setBackground(new java.awt.Color(219, 243, 255));
         txtNombre.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        txtNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre"));
+        txtNombre.setBorder(null);
         txtNombre.setEnabled(false);
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreActionPerformed(evt);
             }
         });
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 170, 160, 40));
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 190, 160, 40));
 
         btnEditar.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.setFocusPainted(false);
-        jPanel1.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 450, 100, 30));
+        jPanel1.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 480, 100, 30));
 
+        txtApellido.setBackground(new java.awt.Color(219, 243, 255));
         txtApellido.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        txtApellido.setBorder(javax.swing.BorderFactory.createTitledBorder("Apellido"));
+        txtApellido.setBorder(null);
         txtApellido.setEnabled(false);
-        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 170, 160, 40));
+        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 190, 160, 40));
 
+        txtUsuario.setBackground(new java.awt.Color(219, 243, 255));
         txtUsuario.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        txtUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Usuario"));
+        txtUsuario.setBorder(null);
         txtUsuario.setEnabled(false);
-        jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 220, 160, 40));
+        jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 250, 160, 40));
 
+        txtContra.setBackground(new java.awt.Color(219, 243, 255));
         txtContra.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        txtContra.setBorder(javax.swing.BorderFactory.createTitledBorder("Contraseña"));
+        txtContra.setBorder(null);
         txtContra.setEnabled(false);
-        jPanel1.add(txtContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 220, 160, 40));
+        jPanel1.add(txtContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 250, 160, 40));
 
         jComboCargo.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         jComboCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vendedor", "Administrador", "Jefe", "Técnico" }));
-        jComboCargo.setBorder(javax.swing.BorderFactory.createTitledBorder("Cargo"));
+        jComboCargo.setBorder(null);
         jComboCargo.setEnabled(false);
         jComboCargo.setFocusable(false);
-        jPanel1.add(jComboCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 270, 160, 40));
+        jPanel1.add(jComboCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 320, 160, 40));
 
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/informacion.png"))); // NOI18N
@@ -126,7 +137,7 @@ public class InterManageUser extends javax.swing.JInternalFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 450, 100, 30));
+        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 480, 100, 30));
 
         registerEntryExit.setBackground(new java.awt.Color(0, 0, 0));
         registerEntryExit.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
@@ -138,7 +149,7 @@ public class InterManageUser extends javax.swing.JInternalFrame {
                 registerEntryExitActionPerformed(evt);
             }
         });
-        jPanel1.add(registerEntryExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 390, 190, 30));
+        jPanel1.add(registerEntryExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 430, 190, 30));
 
         tableUsers.setAutoCreateRowSorter(true);
         tableUsers.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
@@ -162,25 +173,25 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         btnAceptarAgregar.setForeground(new java.awt.Color(51, 51, 51));
         btnAceptarAgregar.setText("Aceptar");
         btnAceptarAgregar.setEnabled(false);
-        jPanel1.add(btnAceptarAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 340, 100, -1));
+        jPanel1.add(btnAceptarAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 370, 100, -1));
 
         btnCancelar.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(51, 51, 51));
         btnCancelar.setText("Cancelar");
         btnCancelar.setEnabled(false);
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 330, 100, 30));
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 370, 100, 30));
 
         btnAceptarEditar.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         btnAceptarEditar.setForeground(new java.awt.Color(51, 51, 51));
         btnAceptarEditar.setText("Aceptar");
         btnAceptarEditar.setEnabled(false);
-        jPanel1.add(btnAceptarEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 340, 100, -1));
+        jPanel1.add(btnAceptarEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 370, 100, -1));
 
         btnAceptarEliminar.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
         btnAceptarEliminar.setForeground(new java.awt.Color(51, 51, 51));
         btnAceptarEliminar.setText("Aceptar");
         btnAceptarEliminar.setEnabled(false);
-        jPanel1.add(btnAceptarEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 340, 100, -1));
+        jPanel1.add(btnAceptarEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 370, 100, -1));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 570, 10));
 
         jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -321,11 +332,32 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         jLabel8.setText("Detalles");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 490, -1, -1));
 
+        jLabel9.setText("Id");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 90, -1, -1));
+
+        jLabel10.setText("Nombre");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 170, -1, -1));
+
+        jLabel11.setText("Apellido");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 170, -1, -1));
+
+        jLabel13.setText("Usuario");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 230, -1, -1));
+
+        jLabel14.setText("Contraseña");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 230, -1, -1));
+
+        jLabel15.setText("Cargo");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 300, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1855, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1843, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -377,15 +409,21 @@ public class InterManageUser extends javax.swing.JInternalFrame {
     public javax.swing.JComboBox<String> jComboValores1;
     public javax.swing.JFormattedTextField jFechaIngreso;
     public javax.swing.JFormattedTextField jFechaSalida;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel12;
+    public javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabel10;
+    public javax.swing.JLabel jLabel11;
+    public javax.swing.JLabel jLabel12;
+    public javax.swing.JLabel jLabel13;
+    public javax.swing.JLabel jLabel14;
+    public javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    public javax.swing.JLabel jLabel3;
+    public javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    public javax.swing.JLabel jLabel6;
+    public javax.swing.JLabel jLabel7;
+    public javax.swing.JLabel jLabel8;
+    public javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
