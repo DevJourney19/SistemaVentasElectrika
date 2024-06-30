@@ -105,7 +105,6 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         txtNombre.setBorder(null);
         txtNombre.setEnabled(false);
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 170, 160, 40));
-=======
 //         txtNombre.addActionListener(new java.awt.event.ActionListener() {
 //             public void actionPerformed(java.awt.event.ActionEvent evt) {
 //                 txtNombreActionPerformed(evt);
