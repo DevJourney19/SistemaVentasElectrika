@@ -1,9 +1,26 @@
 package com.electrika.tech.view;
 
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 
 public class InterPedido extends javax.swing.JInternalFrame {
 
     public InterPedido() {
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            UIManager.setLookAndFeel(new FlatMacLightLaf());
+//            IntelliJTheme.setup( NewJFrame.class.getResourceAsStream("/com/formdev/flatlaf/intellijthemes/themes/Carbon.theme.json" ));
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, "Failed to initialize LaF", ex);
+        }
+        //</editor-fold>
         initComponents();      
     }
 
@@ -74,21 +91,21 @@ public class InterPedido extends javax.swing.JInternalFrame {
         txtFecha.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtFecha.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Fecha de hoy:"));
         txtFecha.setEnabled(false);
-        jPanel1.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 150, 40));
+        jPanel1.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 150, 40));
 
         btnCancelAgregar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnCancelAgregar.setText("Cancelar");
         btnCancelAgregar.setEnabled(false);
-        jPanel1.add(btnCancelAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 190, 100, 30));
+        jPanel1.add(btnCancelAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 190, 100, 30));
 
         btnImprimir.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnImprimir.setText("Crear Boleta");
-        jPanel1.add(btnImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 600, 130, 40));
+        jPanel1.add(btnImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 600, 130, 40));
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 80)); // NOI18N
         jLabel1.setText("Venta");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 40, 300, 70));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 1300, 21));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 40, 300, 70));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 1300, 21));
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setLineWrap(true);
@@ -97,19 +114,19 @@ public class InterPedido extends javax.swing.JInternalFrame {
         txtDescripcion.setEnabled(false);
         jScrollPane1.setViewportView(txtDescripcion);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 270, 120));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, 270, 120));
 
         cbMetodoPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Seleccionar>", "Tarjeta", "Efectivo" }));
         cbMetodoPago.setEnabled(false);
-        jPanel1.add(cbMetodoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 190, 140, 30));
+        jPanel1.add(cbMetodoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 190, 140, 30));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel2.setText("Tipo de pago");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 150, 180, 30));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 150, 180, 30));
 
         btnEliminar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnEliminar.setText("Eliminar");
-        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 340, 100, 30));
+        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 340, 100, 30));
 
         tablita.setBackground(new java.awt.Color(0, 153, 153));
         tablita.setModel(new javax.swing.table.DefaultTableModel(
@@ -122,29 +139,29 @@ public class InterPedido extends javax.swing.JInternalFrame {
         ));
         jScrollPane3.setViewportView(tablita);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 650, 200));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, 650, 200));
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 40, 160));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 160, 40, 160));
 
         btnAgregar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnAgregar.setText("Insertar");
-        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 340, 100, 30));
+        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 340, 100, 30));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel4.setText("Cliente");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 90, 30));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 90, 30));
 
         cbCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Seleccionar>" }));
         cbCliente.setEnabled(false);
-        jPanel1.add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 110, 30));
-        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 290, 10));
+        jPanel1.add(cbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 110, 30));
+        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, 290, 10));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pedido65x65.png"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 40, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 40, -1, -1));
 
         jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 160, 20, 510));
+        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 160, 20, 510));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -259,11 +276,11 @@ public class InterPedido extends javax.swing.JInternalFrame {
 
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 340, 190));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 170, 630, 250));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 170, 630, 250));
 
         jLabel12.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
         jLabel12.setText("Detalle de Venta");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 120, 330, 40));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 120, 330, 40));
 
         tablaDP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -276,27 +293,27 @@ public class InterPedido extends javax.swing.JInternalFrame {
         tablaDP.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane2.setViewportView(tablaDP);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 420, 570, 160));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 420, 570, 160));
 
         btnRegistrar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnRegistrar.setText("Registrar");
         btnRegistrar.setEnabled(false);
-        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 590, 130, 40));
-        jPanel1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 160, 560, 10));
+        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 590, 130, 40));
+        jPanel1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 160, 560, 10));
 
         txtNombreVendedor.setEditable(false);
-        jPanel1.add(txtNombreVendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 120, 27));
+        jPanel1.add(txtNombreVendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 120, 27));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel7.setText("Vendedor");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, -1, -1));
 
         txtTotal.setEnabled(false);
-        jPanel1.add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 280, 150, 30));
+        jPanel1.add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 280, 150, 30));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 3, 24)); // NOI18N
         jLabel3.setText("Importe a pagar");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, 180, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 240, 180, -1));
 
         panelDetalleVenta.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -311,18 +328,18 @@ public class InterPedido extends javax.swing.JInternalFrame {
             .addGap(0, 540, Short.MAX_VALUE)
         );
 
-        jPanel1.add(panelDetalleVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 120, 650, 540));
+        jPanel1.add(panelDetalleVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 120, 650, 540));
 
         btnGuardar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.setEnabled(false);
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 340, 100, 30));
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 340, 100, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1943, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -1,8 +1,26 @@
 package com.electrika.tech.view;
 
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 public class InterManageDistribuidor extends javax.swing.JInternalFrame {
 
     public InterManageDistribuidor() {
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            UIManager.setLookAndFeel(new FlatMacLightLaf());
+//            IntelliJTheme.setup( NewJFrame.class.getResourceAsStream("/com/formdev/flatlaf/intellijthemes/themes/Carbon.theme.json" ));
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, "Failed to initialize LaF", ex);
+        }
+        //</editor-fold>
         initComponents();   
     }
 
@@ -82,31 +100,32 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, 740, 240));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Manage distributor");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, -1, -1));
 
-        txtRuc.setBackground(new java.awt.Color(219, 243, 255));
-        txtRuc.setBorder(null);
+        txtRuc.setBackground(new java.awt.Color(255, 255, 255));
+        txtRuc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtRuc.setEnabled(false);
         jPanel1.add(txtRuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 180, 30));
 
-        txtCode.setBackground(new java.awt.Color(219, 243, 255));
-        txtCode.setBorder(null);
+        txtCode.setBackground(new java.awt.Color(255, 255, 255));
+        txtCode.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtCode.setEnabled(false);
         jPanel1.add(txtCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, 50, 30));
 
-        txtName.setBackground(new java.awt.Color(219, 243, 255));
-        txtName.setBorder(null);
+        txtName.setBackground(new java.awt.Color(255, 255, 255));
+        txtName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtName.setEnabled(false);
         jPanel1.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 350, 30));
 
-        txtDirection.setBackground(new java.awt.Color(219, 243, 255));
-        txtDirection.setBorder(null);
+        txtDirection.setBackground(new java.awt.Color(255, 255, 255));
+        txtDirection.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtDirection.setEnabled(false);
         jPanel1.add(txtDirection, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 350, 30));
 
-        txtPhone.setBackground(new java.awt.Color(219, 243, 255));
-        txtPhone.setBorder(null);
+        txtPhone.setBackground(new java.awt.Color(255, 255, 255));
+        txtPhone.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtPhone.setEnabled(false);
         txtPhone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,7 +188,6 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
         jPanel1.add(labelBuscarB, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 330, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 153));
         jLabel5.setText("SEARCH");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 330, -1, -1));
 
@@ -187,7 +205,6 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 210, -1));
 
         jLabelTsort.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabelTsort.setForeground(new java.awt.Color(0, 0, 153));
         jLabelTsort.setText("SORT");
         jPanel2.add(jLabelTsort, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 140, -1));
 
@@ -227,22 +244,27 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
         jPanel1.add(btnDeshacer, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 263, 150, 30));
 
         jLabelRuc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabelRuc.setForeground(new java.awt.Color(0, 0, 0));
         jLabelRuc.setText("RUC");
         jPanel1.add(jLabelRuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 116, 80, -1));
 
         jLabelCode.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabelCode.setForeground(new java.awt.Color(0, 0, 0));
         jLabelCode.setText("Code");
         jPanel1.add(jLabelCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(545, 116, -1, -1));
 
         jLabelName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabelName.setForeground(new java.awt.Color(0, 0, 0));
         jLabelName.setText("Name");
         jPanel1.add(jLabelName, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 168, -1, -1));
 
         jLabelPhone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabelPhone.setForeground(new java.awt.Color(0, 0, 0));
         jLabelPhone.setText("Phone");
         jPanel1.add(jLabelPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(228, 268, -1, -1));
 
         jLabelAddress.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabelAddress.setForeground(new java.awt.Color(0, 0, 0));
         jLabelAddress.setText("Address");
         jPanel1.add(jLabelAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 218, -1, -1));
 
@@ -250,7 +272,7 @@ public class InterManageDistribuidor extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1417, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

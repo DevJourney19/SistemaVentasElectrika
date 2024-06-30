@@ -1,35 +1,29 @@
-
 package com.electrika.tech.view;
 
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 public class HomeView extends javax.swing.JFrame {
-    
-    
+
     public HomeView() {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HomeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HomeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HomeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HomeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    UIManager.setLookAndFeel(new FlatMacLightLaf());
+//            IntelliJTheme.setup( NewJFrame.class.getResourceAsStream("/com/formdev/flatlaf/intellijthemes/themes/Carbon.theme.json" ));
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, "Failed to initialize LaF", ex);
         }
         //</editor-fold>
         initComponents();
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -82,8 +76,11 @@ public class HomeView extends javax.swing.JFrame {
 
         jMenuBar1.setBackground(new java.awt.Color(0, 0, 0));
         jMenuBar1.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuBar1.setAutoscrolls(true);
         jMenuBar1.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        jMenuBar1.setPreferredSize(new java.awt.Dimension(1100, 71));
+        jMenuBar1.setMaximumSize(new java.awt.Dimension(1450, 32768));
+        jMenuBar1.setMinimumSize(new java.awt.Dimension(1450, 71));
+        jMenuBar1.setPreferredSize(new java.awt.Dimension(1800, 71));
 
         jMenuName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo - Copy.png"))); // NOI18N
         jMenuName.setText("Electrika");
@@ -110,6 +107,7 @@ public class HomeView extends javax.swing.JFrame {
         jMenuCat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/categorias.png"))); // NOI18N
         jMenuCat.setText("Categoría");
         jMenuCat.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        jMenuCat.setMaximumSize(new java.awt.Dimension(150, 32767));
         jMenuCat.setPreferredSize(new java.awt.Dimension(160, 70));
         jMenuBar1.add(jMenuCat);
 
@@ -117,6 +115,7 @@ public class HomeView extends javax.swing.JFrame {
         jMenuProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productos.png"))); // NOI18N
         jMenuProd.setText("Productos");
         jMenuProd.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        jMenuProd.setMaximumSize(new java.awt.Dimension(150, 32767));
         jMenuProd.setPreferredSize(new java.awt.Dimension(165, 70));
         jMenuBar1.add(jMenuProd);
 
@@ -124,6 +123,7 @@ public class HomeView extends javax.swing.JFrame {
         jMenuVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/punto-de-venta.png"))); // NOI18N
         jMenuVentas.setText("Ventas");
         jMenuVentas.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        jMenuVentas.setMaximumSize(new java.awt.Dimension(150, 32767));
         jMenuVentas.setPreferredSize(new java.awt.Dimension(160, 70));
         jMenuBar1.add(jMenuVentas);
 
@@ -139,6 +139,7 @@ public class HomeView extends javax.swing.JFrame {
         jMenuSignOut.setText("Salir");
         jMenuSignOut.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jMenuSignOut.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        jMenuSignOut.setMaximumSize(new java.awt.Dimension(120, 32767));
         jMenuSignOut.setPreferredSize(new java.awt.Dimension(170, 70));
         jMenuBar1.add(jMenuSignOut);
 
@@ -146,8 +147,7 @@ public class HomeView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JDesktopPane desktopPane;
