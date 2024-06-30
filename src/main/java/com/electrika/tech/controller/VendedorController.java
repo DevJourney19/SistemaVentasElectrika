@@ -4,6 +4,7 @@ import java.util.Stack;
 import com.electrika.tech.dao.DaoVendedor;
 import com.electrika.tech.dao.impl.DaoVendedorImpl;
 import com.electrika.tech.entidades.Vendedor;
+import com.electrika.tech.util.LocaleManager;
 import java.util.Date;
 import com.electrika.tech.util.Ordenamiento;
 import com.electrika.tech.view.InterManageUser;
@@ -13,6 +14,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,7 +27,8 @@ public class VendedorController implements ActionListener {
     DefaultTableModel tabla;
     //declaracion de stack
     private Stack<Object[]> historial = new Stack<>();
-
+     Locale locale = LocaleManager.getLocale();
+    ResourceBundle bundle = ResourceBundle.getBundle("com.electrika.tech.properties.usuario", locale);
     public VendedorController(InterManageUser view) {
         this.view = view;
         dao = new DaoVendedorImpl();
@@ -41,6 +46,7 @@ public class VendedorController implements ActionListener {
         view.btnAceptarEliminar.setVisible(false);
 
         listado();
+        asignarLenguaje();
 
         agregarEventos();
     }
@@ -432,6 +438,66 @@ public class VendedorController implements ActionListener {
             }
         }
         view.informe.setText(texto.toString());
+    }
+
+    private void asignarLenguaje() {
+         view.jLabel1.setText(bundle.getString("title"));
+        view.jLabel10.setText(bundle.getString("name"));
+        view.jLabel13.setText(bundle.getString("user"));
+        view.jLabel11.setText(bundle.getString("lastname"));
+        view.jLabel14.setText(bundle.getString("password"));
+        view.jLabel15.setText(bundle.getString("position"));
+        view.btnAceptarAgregar.setText(bundle.getString("accept"));
+        view.btnCancelar.setText(bundle.getString("cancel"));
+        view.registerEntryExit.setText(bundle.getString("btnRegisterEntry/Exit"));
+        view.btnAgregar.setText(bundle.getString("add"));
+        view.btnEditar.setText(bundle.getString("edit"));
+        view.btnEliminar.setText(bundle.getString("eliminate"));
+        view.jLabel12.setText(bundle.getString("registerEntryandExit"));
+        view.jLabel3.setText(bundle.getString("income"));
+        view.jLabel4.setText(bundle.getString("exit"));
+        view.btnGuardarEntryExit.setText(bundle.getString("save"));
+        view.jLabel6.setText(bundle.getString("sortUserTable"));
+        view.jLabel7.setText(bundle.getString("youhavetochoosethevalueyouwanttoorder"));
+        view.btnAscendente.setText(bundle.getString("upward"));
+        view.btnDescendente.setText(bundle.getString("falling"));
+        view.btnOrdenar.setText(bundle.getString("sort"));
+        view.jLabel8.setText(bundle.getString("details"));
+        //cambiar titulo del encabezado de la tabla
+        String[] titulos = {"Id", bundle.getString("name"), bundle.getString("lastname"),
+            bundle.getString("user"), bundle.getString("position")};
+        tabla.setColumnIdentifiers(titulos);
+        view.tableUsers.setModel(tabla);
+        //Cambiar información del jcombobox
+        // Obtener el modelo del JComboBox
+        DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) view.jComboValores1.getModel();
+        DefaultComboBoxModel<String> cargo = (DefaultComboBoxModel<String>) view.jComboCargo.getModel();
+
+        // Índice del elemento que queremos modificar (por ejemplo, el primer elemento)
+        int indexToModify = 0;
+
+        // Nuevo valor para el elemento
+        String newValue = bundle.getString("sItem");
+        String[] newCargoValues = {
+            bundle.getString("seller"),
+            bundle.getString("administrator"),
+            bundle.getString("boss"),
+            bundle.getString("technical")
+        };
+
+        // Modificar el elemento en el modelo
+        model.removeElementAt(indexToModify);
+        model.insertElementAt(newValue, indexToModify);
+        for (int i = 0; i < newCargoValues.length; i++) {
+            cargo.removeElementAt(i);
+            cargo.insertElementAt(newCargoValues[i], i);
+        }
+        //Que se muestre el elemento como si se hubiese seleccionado 
+        view.jComboValores1.setSelectedIndex(indexToModify);
+        view.jComboCargo.setSelectedIndex(0); // Selecciona el primer elemento después de la actualización
+
+    
+
     }
 
 
