@@ -103,6 +103,12 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtNombre.setEnabled(false);
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 200, 160, 30));
+//         txtNombre.addActionListener(new java.awt.event.ActionListener() {
+//             public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                 txtNombreActionPerformed(evt);
+//             }
+//         });
+
 
         btnEditar.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
         btnEditar.setText("Editar");
