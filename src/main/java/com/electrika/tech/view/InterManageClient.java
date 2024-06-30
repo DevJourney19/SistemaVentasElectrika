@@ -1,8 +1,25 @@
 package com.electrika.tech.view;
 
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 public class InterManageClient extends javax.swing.JInternalFrame {
 
-    public InterManageClient() {      
+    public InterManageClient() { 
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            UIManager.setLookAndFeel(new FlatMacLightLaf());
+//            IntelliJTheme.setup( NewJFrame.class.getResourceAsStream("/com/formdev/flatlaf/intellijthemes/themes/Carbon.theme.json" ));
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, "Failed to initialize LaF", ex);
+        }
+        //</editor-fold>
         initComponents();       
     }
 
@@ -165,6 +182,7 @@ public class InterManageClient extends javax.swing.JInternalFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 90, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Trebuchet MS", 1, 48)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Gestionar Clientes");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, -1, -1));
 
@@ -259,7 +277,7 @@ public class InterManageClient extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1704, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1911, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

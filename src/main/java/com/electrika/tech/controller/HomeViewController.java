@@ -33,9 +33,9 @@ public class HomeViewController{
     public void agregarEvento() {
         vista.jMenuName.addMouseListener(new MouseAdapter(){
            public void mouseClicked(MouseEvent e){
-            Icon icono = new ImageIcon(getClass().getClassLoader().getResource("com/electrika/tech./img/feliz.jpg"));
+            Icon icono = new ImageIcon(getClass().getResource("/felicidad.png"));
                //Hacer un vector random que te diga cosas al azar, que interesante la verdad!! :) 
-               JOptionPane.showMessageDialog(null, String.format("¡¡Bienvenid@ %s a Elektrika!!", vendedor.getNombreUsuario()),"Mensaje",JOptionPane.PLAIN_MESSAGE);
+               JOptionPane.showMessageDialog(null, String.format("¡¡Bienvenid@ %s a Electrika!!", vendedor.getNombreUsuario()),"Mensaje",JOptionPane.PLAIN_MESSAGE);
                              
                //Creemos un vector
                String aleatorios[]= new String[10]; 

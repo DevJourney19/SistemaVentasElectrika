@@ -1,8 +1,25 @@
 
 package com.electrika.tech.view;
 
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 public class InterManageProduct extends javax.swing.JInternalFrame {
-    public InterManageProduct() {             
+    public InterManageProduct() {
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            UIManager.setLookAndFeel(new FlatMacLightLaf());
+//            IntelliJTheme.setup( NewJFrame.class.getResourceAsStream("/com/formdev/flatlaf/intellijthemes/themes/Carbon.theme.json" ));
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, "Failed to initialize LaF", ex);
+        }
+        //</editor-fold>
         initComponents();        
     }
    
@@ -11,18 +28,10 @@ public class InterManageProduct extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablePro = new javax.swing.JTable();
-        btnEditar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
-        btnAgregar = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tablePro1 = new javax.swing.JTable();
+        tablePro = new javax.swing.JTable();
         jLabel18 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel19 = new javax.swing.JLabel();
@@ -64,18 +73,21 @@ public class InterManageProduct extends javax.swing.JInternalFrame {
         btnAceptarEliminar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jComboDis = new javax.swing.JComboBox<>();
+        btnEliminar = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setPreferredSize(new java.awt.Dimension(780, 550));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setPreferredSize(new java.awt.Dimension(780, 550));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
-        jLabel2.setText("Gestionar Producto");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, -1, -1));
+        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
+        jLabel4.setText("Gestionar Producto");
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, -1, -1));
 
         tablePro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -93,48 +105,7 @@ public class InterManageProduct extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tablePro);
-
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 90, 580, 350));
-
-        btnEditar.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
-        btnEditar.setText("Editar");
-        jPanel2.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 460, 120, 40));
-
-        btnEliminar.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
-        btnEliminar.setText("Eliminar");
-        jPanel2.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 460, 120, 40));
-
-        btnAgregar.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
-        btnAgregar.setText("Agregar");
-        jPanel2.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 460, 120, 40));
-        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 900, 10));
-
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setPreferredSize(new java.awt.Dimension(780, 550));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel4.setFont(new java.awt.Font("Trebuchet MS", 1, 36)); // NOI18N
-        jLabel4.setText("Gestionar Producto");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, -1, -1));
-
-        tablePro1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Codigo", "Nombre", "Descripción", "Stock", "Precio", "Categoria", "Proveedor"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(tablePro1);
+        jScrollPane3.setViewportView(tablePro);
 
         jPanel4.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 90, 580, 350));
 
@@ -315,9 +286,19 @@ public class InterManageProduct extends javax.swing.JInternalFrame {
 
         jPanel4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 290, 440));
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1710, 850));
+        btnEliminar.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnEliminar.setText("Eliminar");
+        jPanel4.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 460, 120, 40));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1650, 850));
+        btnAgregar.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnAgregar.setText("Agregar");
+        jPanel4.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 460, 120, 40));
+
+        btnEditar.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
+        btnEditar.setText("Editar");
+        jPanel4.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 460, 120, 40));
+
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1940, 850));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -341,7 +322,6 @@ public class InterManageProduct extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -354,14 +334,11 @@ public class InterManageProduct extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     public javax.swing.JLabel labelAntesResu;
@@ -371,7 +348,6 @@ public class InterManageProduct extends javax.swing.JInternalFrame {
     public javax.swing.JRadioButton rb_asc;
     public javax.swing.JRadioButton rb_desc;
     public javax.swing.JTable tablePro;
-    public javax.swing.JTable tablePro1;
     public javax.swing.JTextField txtBuscarB;
     public javax.swing.JTextArea txtDescripcion;
     public javax.swing.JTextField txtId;

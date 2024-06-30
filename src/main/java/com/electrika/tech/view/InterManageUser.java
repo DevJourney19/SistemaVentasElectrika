@@ -1,9 +1,26 @@
 
 package com.electrika.tech.view;
 
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 public class InterManageUser extends javax.swing.JInternalFrame {
     
     public InterManageUser() {
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            UIManager.setLookAndFeel(new FlatMacLightLaf());
+//            IntelliJTheme.setup( NewJFrame.class.getResourceAsStream("/com/formdev/flatlaf/intellijthemes/themes/Carbon.theme.json" ));
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(HomeView.class.getName()).log(Level.SEVERE, "Failed to initialize LaF", ex);
+        }
+        //</editor-fold>
         initComponents(); 
        
     }
@@ -68,6 +85,7 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 1, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Gestionar Usuarios");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, -1, -1));
 
@@ -86,12 +104,13 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         txtNombre.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         txtNombre.setBorder(null);
         txtNombre.setEnabled(false);
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 190, 160, 40));
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 170, 160, 40));
+=======
+//         txtNombre.addActionListener(new java.awt.event.ActionListener() {
+//             public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                 txtNombreActionPerformed(evt);
+//             }
+//         });
 
         btnEditar.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
         btnEditar.setText("Editar");
@@ -132,23 +151,23 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         btnAgregar.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
         btnAgregar.setText("Agregar");
         btnAgregar.setFocusPainted(false);
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 480, 100, 30));
+        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 450, 100, 30));
+//         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+//             public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                 btnAgregarActionPerformed(evt);
+//             }
+//         });
 
         registerEntryExit.setBackground(new java.awt.Color(0, 0, 0));
         registerEntryExit.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         registerEntryExit.setForeground(new java.awt.Color(255, 255, 255));
         registerEntryExit.setText("Registrar Ingreso/Salida");
         registerEntryExit.setBorder(null);
-        registerEntryExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registerEntryExitActionPerformed(evt);
-            }
-        });
+//         registerEntryExit.addActionListener(new java.awt.event.ActionListener() {
+//             public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                 registerEntryExitActionPerformed(evt);
+//             }
+//         });
         jPanel1.add(registerEntryExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 430, 190, 30));
 
         tableUsers.setAutoCreateRowSorter(true);
@@ -225,11 +244,6 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         }
         jFechaIngreso.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jFechaIngreso.setEnabled(false);
-        jFechaIngreso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFechaIngresoActionPerformed(evt);
-            }
-        });
 
         try {
             jFechaSalida.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-##-##")));
@@ -238,11 +252,6 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         }
         jFechaSalida.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jFechaSalida.setEnabled(false);
-        jFechaSalida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFechaSalidaActionPerformed(evt);
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
@@ -368,26 +377,6 @@ public class InterManageUser extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void registerEntryExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerEntryExitActionPerformed
-       
-    }//GEN-LAST:event_registerEntryExitActionPerformed
-
-    private void jFechaIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFechaIngresoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFechaIngresoActionPerformed
-
-    private void jFechaSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFechaSalidaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFechaSalidaActionPerformed
-
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
-
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAgregarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
