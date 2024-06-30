@@ -89,84 +89,70 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         jLabel1.setText("Gestionar Usuarios");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, -1, -1));
 
-        txtId.setBackground(new java.awt.Color(219, 243, 255));
         txtId.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        txtId.setBorder(null);
+        txtId.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtId.setEnabled(false);
-        jPanel1.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 120, 50, 40));
+        jPanel1.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 130, 50, 30));
 
         btnEliminar.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.setFocusPainted(false);
         jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 480, 100, 30));
 
-        txtNombre.setBackground(new java.awt.Color(219, 243, 255));
         txtNombre.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        txtNombre.setBorder(null);
+        txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtNombre.setEnabled(false);
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 170, 160, 40));
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 200, 160, 30));
 //         txtNombre.addActionListener(new java.awt.event.ActionListener() {
 //             public void actionPerformed(java.awt.event.ActionEvent evt) {
 //                 txtNombreActionPerformed(evt);
 //             }
 //         });
 
+
         btnEditar.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.setFocusPainted(false);
         jPanel1.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 480, 100, 30));
 
-        txtApellido.setBackground(new java.awt.Color(219, 243, 255));
         txtApellido.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        txtApellido.setBorder(null);
+        txtApellido.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtApellido.setEnabled(false);
-        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 190, 160, 40));
+        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 200, 160, 30));
 
-        txtUsuario.setBackground(new java.awt.Color(219, 243, 255));
         txtUsuario.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        txtUsuario.setBorder(null);
+        txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtUsuario.setEnabled(false);
-        jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 250, 160, 40));
+        jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 260, 160, 30));
 
-        txtContra.setBackground(new java.awt.Color(219, 243, 255));
         txtContra.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        txtContra.setBorder(null);
+        txtContra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtContra.setEnabled(false);
-        jPanel1.add(txtContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 250, 160, 40));
+        jPanel1.add(txtContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 260, 160, 30));
 
         jComboCargo.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         jComboCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vendedor", "Administrador", "Jefe", "Técnico" }));
-        jComboCargo.setBorder(null);
+        jComboCargo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jComboCargo.setEnabled(false);
         jComboCargo.setFocusable(false);
-        jPanel1.add(jComboCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 320, 160, 40));
+        jPanel1.add(jComboCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 320, 160, 30));
 
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/informacion.png"))); // NOI18N
         btnBuscar.setEnabled(false);
         btnBuscar.setFocusPainted(false);
-        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 100, 60, 60));
+        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 110, 60, 60));
 
         btnAgregar.setFont(new java.awt.Font("Trebuchet MS", 0, 16)); // NOI18N
         btnAgregar.setText("Agregar");
         btnAgregar.setFocusPainted(false);
-        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 450, 100, 30));
-//         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-//             public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                 btnAgregarActionPerformed(evt);
-//             }
-//         });
+        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 480, 100, 30));
 
         registerEntryExit.setBackground(new java.awt.Color(0, 0, 0));
         registerEntryExit.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         registerEntryExit.setForeground(new java.awt.Color(255, 255, 255));
         registerEntryExit.setText("Registrar Ingreso/Salida");
         registerEntryExit.setBorder(null);
-//         registerEntryExit.addActionListener(new java.awt.event.ActionListener() {
-//             public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                 registerEntryExitActionPerformed(evt);
-//             }
-//         });
         jPanel1.add(registerEntryExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 430, 190, 30));
 
         tableUsers.setAutoCreateRowSorter(true);
@@ -341,22 +327,22 @@ public class InterManageUser extends javax.swing.JInternalFrame {
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 490, -1, -1));
 
         jLabel9.setText("Id");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 90, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 110, -1, -1));
 
         jLabel10.setText("Nombre");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 170, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 180, -1, -1));
 
         jLabel11.setText("Apellido");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 170, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 180, -1, -1));
 
         jLabel13.setText("Usuario");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 230, -1, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 240, -1, -1));
 
         jLabel14.setText("Contraseña");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 230, -1, -1));
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 240, -1, -1));
 
         jLabel15.setText("Cargo");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 300, -1, -1));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 300, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
