@@ -4,7 +4,7 @@ import com.electrika.tech.dao.*;
 import com.electrika.tech.dao.impl.*;
 import com.electrika.tech.entidades.*;
 import com.electrika.tech.util.Busqueda;
-import com.electrika.tech.util.Ordenamiento;
+import com.electrika.tech.util.LocaleManager;
 import com.electrika.tech.view.InterManageProduct;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,8 +14,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Queue;
+import java.util.ResourceBundle;
 import java.util.Stack;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,6 +29,8 @@ public class ProductoController implements ActionListener {
     DaoDistribuidor daoDis;
     DefaultTableModel table;
     private InterManageProduct view;
+    Locale locale = LocaleManager.getLocale();
+    ResourceBundle bundle = ResourceBundle.getBundle("com.electrika.tech.properties/producto", locale);
 
     public ProductoController(InterManageProduct view) {
         this.view = view;
@@ -44,6 +49,7 @@ public class ProductoController implements ActionListener {
         for (Distribuidor dis : daoDis.select()) {
             view.jComboDis.addItem(dis.toString());
         }
+        asignarLenguaje();
         agregarEventos();
     }
 
@@ -62,7 +68,7 @@ public class ProductoController implements ActionListener {
         view.btnEditar.addActionListener(this);
         view.btnEliminar.addActionListener(this);
         view.btnOrdenar.addActionListener(this);
-        view.btnBuscarB.addActionListener(this);
+        view.btnBinarySearch.addActionListener(this);
         view.cb_queOrdenar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (view.cb_queOrdenar.getSelectedIndex() != 0) {
@@ -70,7 +76,7 @@ public class ProductoController implements ActionListener {
                     view.rb_desc.setEnabled(true);
                 } else {
                     view.txtBuscarB.setEnabled(false);
-                    view.btnBuscarB.setEnabled(false);
+                    view.btnBinarySearch.setEnabled(false);
                     view.rb_asc.setEnabled(false);
                     view.buttonGroup1.clearSelection();
                     view.rb_desc.setEnabled(false);
@@ -332,78 +338,78 @@ public class ProductoController implements ActionListener {
         }
     }
 
-    public void ordenarTabla() { 
-        if (view.cb_queOrdenar.getSelectedItem().equals("<Seleccionar item>")) { 
-            System.out.println(view.cb_queOrdenar.getSelectedItem()); 
-            JOptionPane.showMessageDialog(null, "Seleccione un campo a ordenar"); 
-        } else if (view.rb_asc.isSelected()) { 
-            switch (view.cb_queOrdenar.getSelectedIndex()) { 
-                case 1:  
-                    ordenAscendente(0); 
-                    labelBuscar(table.getColumnName(0)); 
-                    break; 
-                case 2:  
-                    ordenAscendente(3); 
-                    labelBuscar(table.getColumnName(3)); 
-                    break; 
-                case 3:  
-                    ordenAscendente(4); 
-                    labelBuscar(table.getColumnName(4)); 
-                    break; 
-                default: 
-                    throw new AssertionError(); 
-            } 
-//            ordenAscendente(view.cb_queOrdenar.getSelectedIndex()); 
-        } else if (view.rb_desc.isSelected()) { 
-            switch (view.cb_queOrdenar.getSelectedIndex()) { 
-                case 1:  
-                    ordenarDescendente(0); 
-                    labelBuscar(table.getColumnName(0)); 
-                    break; 
-
-                case 2:  
-                    ordenarDescendente(3); 
-                    labelBuscar(table.getColumnName(3)); 
+    public void ordenarTabla() {
+        if (view.cb_queOrdenar.getSelectedItem().equals("<Seleccionar item>")) {
+            System.out.println(view.cb_queOrdenar.getSelectedItem());
+            JOptionPane.showMessageDialog(null, "Seleccione un campo a ordenar");
+        } else if (view.rb_asc.isSelected()) {
+            switch (view.cb_queOrdenar.getSelectedIndex()) {
+                case 1:
+                    ordenAscendente(0);
+                    labelBuscar(table.getColumnName(0));
                     break;
-                case 3:  
-                    ordenarDescendente(4); 
-                    labelBuscar(table.getColumnName(4)); 
-                    break; 
-                default: 
-                    throw new AssertionError(); 
-            } 
-        } 
-        view.txtBuscarB.setEnabled(true); 
-        view.btnBuscarB.setEnabled(true); 
-    } 
+                case 2:
+                    ordenAscendente(3);
+                    labelBuscar(table.getColumnName(3));
+                    break;
+                case 3:
+                    ordenAscendente(4);
+                    labelBuscar(table.getColumnName(4));
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+//            ordenAscendente(view.cb_queOrdenar.getSelectedIndex()); 
+        } else if (view.rb_desc.isSelected()) {
+            switch (view.cb_queOrdenar.getSelectedIndex()) {
+                case 1:
+                    ordenarDescendente(0);
+                    labelBuscar(table.getColumnName(0));
+                    break;
 
-    public void labelBuscar(String nombre) {
-        view.labelBuscar.setText(nombre);
+                case 2:
+                    ordenarDescendente(3);
+                    labelBuscar(table.getColumnName(3));
+                    break;
+                case 3:
+                    ordenarDescendente(4);
+                    labelBuscar(table.getColumnName(4));
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+        }
+        view.txtBuscarB.setEnabled(true);
+        view.btnBinarySearch.setEnabled(true);
     }
 
-    public void ordenAscendente(Integer columnIndex) {     
-        Stack<Object[]> filasV = new Stack<>(); 
-        for (int i = 0; i < table.getRowCount(); i++) { 
-            filasV.add(table.getDataVector().get(i).toArray()); 
-        } 
-        Collections.sort(filasV, (a, b) -> ((Comparable<Object>) b[columnIndex]).compareTo(a[columnIndex])); 
-        table.setRowCount(0); 
-        while (!filasV.isEmpty()) { 
-            table.addRow(filasV.pop()); 
-        } 
-    } 
+    public void labelBuscar(String nombre) {
+        view.jLabelBuscarCol.setText(nombre);
+    }
 
-    public void ordenarDescendente(int columnIndex) { 
-        Stack<Object[]> filasV = new Stack<>(); 
-        for (int i = 0; i < table.getRowCount(); i++) { 
-            filasV.push(table.getDataVector().get(i).toArray()); 
-        } 
-        Collections.sort(filasV, (a, b) -> ((Comparable<Object>) a[columnIndex]).compareTo(b[columnIndex])); 
-        table.setRowCount(0); 
-        while (!filasV.isEmpty()) { 
-            table.addRow(filasV.pop()); 
-        } 
-    } 
+    public void ordenAscendente(Integer columnIndex) {
+        Stack<Object[]> filasV = new Stack<>();
+        for (int i = 0; i < table.getRowCount(); i++) {
+            filasV.add(table.getDataVector().get(i).toArray());
+        }
+        Collections.sort(filasV, (a, b) -> ((Comparable<Object>) b[columnIndex]).compareTo(a[columnIndex]));
+        table.setRowCount(0);
+        while (!filasV.isEmpty()) {
+            table.addRow(filasV.pop());
+        }
+    }
+
+    public void ordenarDescendente(int columnIndex) {
+        Stack<Object[]> filasV = new Stack<>();
+        for (int i = 0; i < table.getRowCount(); i++) {
+            filasV.push(table.getDataVector().get(i).toArray());
+        }
+        Collections.sort(filasV, (a, b) -> ((Comparable<Object>) a[columnIndex]).compareTo(b[columnIndex]));
+        table.setRowCount(0);
+        while (!filasV.isEmpty()) {
+            table.addRow(filasV.pop());
+        }
+    }
 
     public void binario() {
 
@@ -411,44 +417,100 @@ public class ProductoController implements ActionListener {
             JOptionPane.showMessageDialog(null, "Ingrese un elemento a buscar");
         } else {
             switch (view.cb_queOrdenar.getSelectedIndex()) {
-                case 1 -> {
+                case 1: {
                     busquedaBinaria(0);
                 }
-                case 2 -> {
+                case 2: {
                     busquedaBinaria(3);
                 }
-                case 3 -> {
+                case 3: {
                     busquedaBinaria(4);
                 }
-                default ->
+                default:
                     throw new AssertionError();
             }
 
         }
     }
 
-    public void busquedaBinaria(Integer columnIndex) { 
-        Queue<String> columnValues = new LinkedList<>(); 
-        for (int i = 0; i < table.getRowCount(); i++) { 
-            columnValues.add(String.valueOf(table.getValueAt(i, columnIndex))); 
-        } 
+    public void busquedaBinaria(Integer columnIndex) {
+        Queue<String> columnValues = new LinkedList<>();
+        for (int i = 0; i < table.getRowCount(); i++) {
+            columnValues.add(String.valueOf(table.getValueAt(i, columnIndex)));
+        }
 
-        try { 
-            double valor = Double.parseDouble(view.txtBuscarB.getText()); 
-            Integer resultado = Busqueda.busquedaBinariaNumeric((List<String>) columnValues, valor); 
-            if (resultado!= null) { 
-                view.labelAntesResu.setText(String.format("%s se encuentra en la fila:", view.txtBuscarB.getText())); 
-                view.labelResultado.setText(String.valueOf((resultado + 1))); 
-                view.labelAntesResu.setVisible(true); 
-                view.labelResultado.setVisible(true); 
-            } else { 
-                JOptionPane.showMessageDialog(null, "No se encontró su búsqueda"); 
-            } 
-        } catch (NumberFormatException e) { 
-            JOptionPane.showMessageDialog(null, "El texto ingresado no es un numero valido"); 
-        } 
-        view.txtBuscarB.setText(""); 
-    } 
+        try {
+            double valor = Double.parseDouble(view.txtBuscarB.getText());
+            Integer resultado = Busqueda.busquedaBinariaNumeric((List<String>) columnValues, valor);
+            if (resultado != null) {
+                view.labelAntesResu.setText(String.format("%s se encuentra en la fila:", view.txtBuscarB.getText()));
+                view.labelResultado.setText(String.valueOf((resultado + 1)));
+                view.labelAntesResu.setVisible(true);
+                view.labelResultado.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró su búsqueda");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El texto ingresado no es un numero valido");
+        }
+        view.txtBuscarB.setText("");
+    }
+
+    public void asignarLenguaje() {
+        /**
+         * Se creó una clase ResourseBundleManager para poder almacenar los
+         * valores que se obtuvieron en el login.
+         */
+        //Se actualiza el lenguaje de los nombres de los elementos del Java Swing
+        view.jLabelTitlePro.setText(bundle.getString("titlePro"));
+        view.jLabelCode.setText(bundle.getString("code"));
+        view.jLabelDescription.setText(bundle.getString("name"));
+        view.jLabelDescription.setText(bundle.getString("description"));
+        view.jLabelPrice.setText(bundle.getString("price"));
+        view.jLabelStock.setText(bundle.getString("stock"));
+        view.jLabelCategory.setText(bundle.getString("category"));
+        view.jLabelSupplier.setText(bundle.getString("supplier"));
+        view.btnAgregar.setText(bundle.getString("add"));
+        view.btnEditar.setText(bundle.getString("edit"));
+        view.btnEliminar.setText(bundle.getString("delete"));
+        view.btnBuscar.setText(bundle.getString("search"));
+        view.btnAceptarAgregar.setText(bundle.getString("bAccept"));
+        view.btnAceptarEditar.setText(bundle.getString("bAccept"));
+        view.btnAceptarEliminar.setText(bundle.getString("bAccept"));
+        view.btnCancelar.setText(bundle.getString("bCancel"));
+        //Cuadros del sort y search
+        view.jLabelTitleSort.setText(bundle.getString("sort"));
+        view.jLabelQuestSort.setText(bundle.getString("wField"));
+        view.rb_asc.setText(bundle.getString("asc"));
+        view.rb_desc.setText(bundle.getString("desc"));
+        view.btnOrdenar.setText(bundle.getString("sort"));
+        view.jLabelBinarySearch.setText(bundle.getString("search"));
+        view.jLabelSearch.setText(bundle.getString("searchCol"));
+        view.btnBinarySearch.setText(bundle.getString("search"));
+
+        //Cambiar titulos del encabezado de la tabla
+        String[] titulos = {bundle.getString("code"), bundle.getString("name"),
+            bundle.getString("description"), bundle.getString("stock"), bundle.getString("price"), bundle.getString("category"), bundle.getString("supplier")};
+        table.setColumnIdentifiers(titulos);
+        view.tablePro.setModel(table);
+
+        //Cambiar información del jcombobox
+        // Obtener el modelo del JComboBox
+        DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) view.cb_queOrdenar.getModel();
+
+        // Índice del elemento que queremos modificar (por ejemplo, el primer elemento)
+        int indexToModify = 0;
+
+        // Nuevo valor para el elemento
+        String newValue = bundle.getString("sItem");
+
+        // Modificar el elemento en el modelo
+        model.removeElementAt(indexToModify);
+        model.insertElementAt(newValue, indexToModify);
+        //Que se muestre el elemento como si se hubiese seleccionado 
+        view.cb_queOrdenar.setSelectedIndex(indexToModify);
+
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -470,7 +532,7 @@ public class ProductoController implements ActionListener {
             eliminar();
         } else if (e.getSource() == view.btnOrdenar) {
             ordenarTabla();
-        } else if (e.getSource() == view.btnBuscarB) {
+        } else if (e.getSource() == view.btnBinarySearch) {
             binario();
         }
     }
