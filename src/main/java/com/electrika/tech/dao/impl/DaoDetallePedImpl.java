@@ -6,7 +6,6 @@ import com.electrika.tech.dao.DaoProducto;
 import static com.electrika.tech.dao.impl.DaoPedidoImpl.idPed;
 
 import com.electrika.tech.entidades.DetallePedido;
-import com.electrika.tech.entidades.Producto;
 import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +13,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.electrika.tech.util.ConectaBD;
-import java.util.Stack;
 
 public class DaoDetallePedImpl implements DaoDetallePedido {
 
@@ -49,9 +47,7 @@ public class DaoDetallePedImpl implements DaoDetallePedido {
                 .append("idPedido,")
                 .append("idProducto")
                 .append(" FROM DetallePedido");
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
-            ResultSet rs = ps.executeQuery();
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString()); ResultSet rs = ps.executeQuery();) {
             lista = new ArrayList<>();
             while (rs.next()) {
                 DetallePedido detallePedido = new DetallePedido();
@@ -76,13 +72,11 @@ public class DaoDetallePedImpl implements DaoDetallePedido {
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO DetallePedido(")
                 .append("cantidadProducto,")
-                .append("subtotal,")               
+                .append("subtotal,")
                 .append("idProducto")
                 .append(") VALUES (?,?,?)");
 
-        try (Connection c = con.getConexion()) {
-
-            PreparedStatement ps = c.prepareStatement(sql.toString(), java.sql.Statement.RETURN_GENERATED_KEYS);
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString(), java.sql.Statement.RETURN_GENERATED_KEYS);) {
             ps.setInt(1, (categoria.getCantidadProducto()));
             ps.setDouble(2, categoria.getPagar());
             ps.setInt(3, categoria.getProducto().getCodProducto());
@@ -142,8 +136,7 @@ public class DaoDetallePedImpl implements DaoDetallePedido {
                 .append("idPedido = ?,")
                 .append("idProducto = ?")
                 .append(" WHERE idDetallePedido = ?");
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString());) {
             ps.setInt(1, categoria.getCantidadProducto());
             ps.setDouble(2, categoria.getPagar());
             ps.setInt(3, categoria.getIdDetallePedi());
@@ -163,8 +156,7 @@ public class DaoDetallePedImpl implements DaoDetallePedido {
         StringBuilder sql = new StringBuilder();
         sql.append("DELETE FROM DetallePedido ")
                 .append("WHERE idDetallePedido = ?");
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString());) {
             ps.setInt(1, id);
             mensaje = (ps.executeUpdate() == 0) ? "No se eliminó" : null;
         } catch (Exception e) {
@@ -185,19 +177,22 @@ public class DaoDetallePedImpl implements DaoDetallePedido {
                 .append("cantidadProducto,")
                 .append("subtotal")
                 .append(" FROM DetallePedido");
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString());) {
             ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                det = new DetallePedido();
-                det.setIdDetallePedi(rs.getInt(1));
-                det.setIdPedi(rs.getInt(2));
-                Integer idProdu = rs.getInt(3);
-                det.setProducto(pro.get(idProdu));
-                det.setCantidadProducto(4);
-                det.setPagar(rs.getDouble(5));
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    det = new DetallePedido();
+                    det.setIdDetallePedi(rs.getInt(1));
+                    det.setIdPedi(rs.getInt(2));
+                    Integer idProdu = rs.getInt(3);
+                    det.setProducto(pro.get(idProdu));
+                    det.setCantidadProducto(4);
+                    det.setPagar(rs.getDouble(5));
+                }
+            } catch (Exception e) {
+                mensaje = e.getMessage();
             }
+
         } catch (Exception e) {
             mensaje = e.getMessage();
         }
@@ -217,9 +212,7 @@ public class DaoDetallePedImpl implements DaoDetallePedido {
                 .append("precioUnidad,")
                 .append("subtotal")
                 .append(" FROM detallePedidoview");
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
-            ResultSet rs = ps.executeQuery();
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString()); ResultSet rs = ps.executeQuery();) {
             lista = new ArrayList<>();
 
             while (rs.next()) {
@@ -246,8 +239,7 @@ public class DaoDetallePedImpl implements DaoDetallePedido {
         sql.append("UPDATE DetallePedido SET ")
                 .append("idPedido = ? ")
                 .append("WHERE idDetallePedido = ?");
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString());) {
             ps.setInt(1, idPedido);
             ps.setInt(2, idDet);
 
@@ -284,16 +276,20 @@ public class DaoDetallePedImpl implements DaoDetallePedido {
         try (Connection c = con.getConexion()) {
             PreparedStatement ps = c.prepareStatement(sql.toString());
             ps.setInt(1, idPed);
-            ResultSet rs = ps.executeQuery();
             lista = new ArrayList<>();
-            while (rs.next()) {
-                Object[] obj = new Object[4];
-                obj[0] = rs.getInt(1);
-                obj[1] = rs.getString(2);
-                obj[2] = rs.getDouble(3);
-                obj[3] = rs.getDouble(4);
-                lista.add(obj);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Object[] obj = new Object[4];
+                    obj[0] = rs.getInt(1);
+                    obj[1] = rs.getString(2);
+                    obj[2] = rs.getDouble(3);
+                    obj[3] = rs.getDouble(4);
+                    lista.add(obj);
+                }
+            } catch (Exception e) {
+                mensaje = e.getMessage();
             }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
