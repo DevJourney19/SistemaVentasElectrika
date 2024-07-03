@@ -36,10 +36,8 @@ public class DaoCategoriaImpl implements DaoCategoria {
                 .append(" FROM Categoria");
         //try con recursos para no usar el finally
         //lo va a cerrar funcione o falle
-        try (Connection c = con.getConexion()) {
-            //PreparedStatement limpia de inyecciones a la secuencia sql
-            PreparedStatement ps = c.prepareStatement(sql.toString());
-            ResultSet rs = ps.executeQuery();
+        //PreparedStatement limpia de inyecciones a la secuencia sql
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString()); ResultSet rs = ps.executeQuery();) {
             lista = new ArrayList<>();
             //mientras exista un registro resultSet continúa
             while (rs.next()) {
@@ -63,9 +61,7 @@ public class DaoCategoriaImpl implements DaoCategoria {
                 .append("descripcion")
                 .append(") VALUES (?,?)");
 
-        try (Connection c = con.getConexion()) {
-
-            PreparedStatement ps = c.prepareStatement(sql.toString());
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString());) {
             ps.setString(1, categoria.getNombre());
             ps.setString(2, categoria.getDescripcion());
             mensaje = (ps.executeUpdate() == 0) ? "No se actualizo" : null;
@@ -83,8 +79,7 @@ public class DaoCategoriaImpl implements DaoCategoria {
                 .append("nombre = ?,")
                 .append("descripcion = ?")
                 .append(" WHERE idCate = ?");
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString());) {
             ps.setString(1, categoria.getNombre());
             ps.setString(2, categoria.getDescripcion());
             ps.setInt(3, categoria.getIdCate());
@@ -95,13 +90,13 @@ public class DaoCategoriaImpl implements DaoCategoria {
         return mensaje;
     }
 
+//    Recursos c y ps
     @Override
     public String delete(Integer id) {
         StringBuilder sql = new StringBuilder();
         sql.append("DELETE FROM Categoria ")
                 .append("WHERE idCate = ?");
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString());) {
             ps.setInt(1, id);
             mensaje = (ps.executeUpdate() == 0) ? "No se eliminó" : null;
         } catch (Exception e) {
@@ -120,16 +115,20 @@ public class DaoCategoriaImpl implements DaoCategoria {
                 .append("descripcion")
                 .append(" FROM Categoria")
                 .append(" WHERE idCate =?");
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
+        try (Connection c = con.getConexion();
+            PreparedStatement ps = c.prepareStatement(sql.toString()); ){
             ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                cat = new Categoria();
-                cat.setId(rs.getInt(1));
-                cat.setNombre(rs.getString(2));
-                cat.setDescripcion(rs.getString(3));
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    cat = new Categoria();
+                    cat.setId(rs.getInt(1));
+                    cat.setNombre(rs.getString(2));
+                    cat.setDescripcion(rs.getString(3));
+                }
+            } catch (Exception e) {
+                mensaje = e.getMessage();
             }
+
         } catch (Exception e) {
             mensaje = e.getMessage();
         }

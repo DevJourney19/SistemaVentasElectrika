@@ -99,10 +99,7 @@ public class DaoVendedorImpl implements DaoVendedor {
                 .append(" FROM Vendedor");
         //try con recursos para no usar el finally
         //lo va a cerrar funcione o falle
-        try (Connection c = con.getConexion()) {
-            //PreparedStatement limpia de inyecciones a la secuencia sql
-            PreparedStatement ps = c.prepareStatement(sql.toString());
-            ResultSet rs = ps.executeQuery();
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString()); ResultSet rs = ps.executeQuery();) {
             //mientras exista un registro resultSet continúa
             lista = new ArrayList<>();
             while (rs.next()) {
@@ -190,38 +187,38 @@ public class DaoVendedorImpl implements DaoVendedor {
                 .append("fechaSalida = ?")
                 .append(" WHERE idVendedor = ?");
         try (Connection c = con.getConexion()) {
-  if (aux != null) {
-            boolean usuarioPasswordExist = false;
-            for (Vendedor ven : empleado.values()) {
-                if (ven.getPassword() != null && ven.getPassword().equals(vendedor.getPassword())) {
-                    usuarioPasswordExist = true;
-                    break;
+            if (aux != null) {
+                boolean usuarioPasswordExist = false;
+                for (Vendedor ven : empleado.values()) {
+                    if (ven.getPassword() != null && ven.getPassword().equals(vendedor.getPassword())) {
+                        usuarioPasswordExist = true;
+                        break;
+                    }
                 }
-            }
-            if (!usuarioPasswordExist) {
-                PreparedStatement ps = c.prepareStatement(sql.toString());
-                ps.setString(1, vendedor.getApellidoUsuario());
-                ps.setString(2, vendedor.getNombreUsuario());
-                ps.setString(3, vendedor.getPuestoArea());
-                ps.setString(4, vendedor.getUsuario());
-                ps.setString(5, vendedor.getPassword());
-                ps.setString(6, vendedor.getPassword());
-                ps.setString(7, vendedor.getFechaIngreso());
-                ps.setString(8, vendedor.getFechaSalida());
-                ps.setInt(9, vendedor.getCodUsuario());
-              //  int result = ps.executeUpdate();
+                if (!usuarioPasswordExist) {
+                    PreparedStatement ps = c.prepareStatement(sql.toString());
+                    ps.setString(1, vendedor.getApellidoUsuario());
+                    ps.setString(2, vendedor.getNombreUsuario());
+                    ps.setString(3, vendedor.getPuestoArea());
+                    ps.setString(4, vendedor.getUsuario());
+                    ps.setString(5, vendedor.getPassword());
+                    ps.setString(6, vendedor.getPassword());
+                    ps.setString(7, vendedor.getFechaIngreso());
+                    ps.setString(8, vendedor.getFechaSalida());
+                    ps.setInt(9, vendedor.getCodUsuario());
+                    //  int result = ps.executeUpdate();
 
                     mensaje = (ps.executeUpdate() == 0) ? "No se actualizó" : "Se actualizó, no te olvides tu contraseña actualizada";
-            } else {
-                mensaje = "El nombre de usuario o contraseña ya existe";
+                } else {
+                    mensaje = "El nombre de usuario o contraseña ya existe";
                 }
-               
+
             }
 
         } catch (Exception e) {
             mensaje = e.getMessage();
         }
-        return mensaje; 
+        return mensaje;
     }
 
     @Override
@@ -235,8 +232,7 @@ public class DaoVendedorImpl implements DaoVendedor {
         StringBuilder sql = new StringBuilder();
         sql.append("DELETE FROM Vendedor ")
                 .append("WHERE idVendedor = ?");
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString());) {
             ps.setInt(1, id);
             mensaje = (ps.executeUpdate() == 0) ? "No se eliminó" : null;
         } catch (Exception e) {
@@ -260,28 +256,27 @@ public class DaoVendedorImpl implements DaoVendedor {
                 .append(" FROM Vendedor")
                 .append(" WHERE idVendedor =?");
 
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString());) {
             ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                ven = new Vendedor();
-                ven.setCodUsuario(rs.getInt(1));
-                ven.setApellidoUsuario(rs.getString(2));
-                ven.setNombreUsuario(rs.getString(3));
-                ven.setPuestoArea(rs.getString(4));
-                ven.setUsuario(rs.getString(5));
-                ven.setFechaIngreso(rs.getString(6));
-                ven.setFechaSalida(rs.getString(7));
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    ven = new Vendedor();
+                    ven.setCodUsuario(rs.getInt(1));
+                    ven.setApellidoUsuario(rs.getString(2));
+                    ven.setNombreUsuario(rs.getString(3));
+                    ven.setPuestoArea(rs.getString(4));
+                    ven.setUsuario(rs.getString(5));
+                    ven.setFechaIngreso(rs.getString(6));
+                    ven.setFechaSalida(rs.getString(7));
+                }
+            } catch (Exception e) {
+                mensaje = e.getMessage();
             }
+
         } catch (Exception e) {
             mensaje = e.getMessage();
         }
 
         return ven;
     }
-    /*public Vendedor pop(){
-        return historial.isEmpty()? null:historial.pop();
-    }
-*/
 }

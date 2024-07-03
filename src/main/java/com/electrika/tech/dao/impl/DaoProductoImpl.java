@@ -22,10 +22,10 @@ public class DaoProductoImpl implements DaoProducto {
 
     public DaoProductoImpl() {
         con = new ConectaBD();
-        cat= new DaoCategoriaImpl();
-        dis= new DaoDistribuidorImpl();
+        cat = new DaoCategoriaImpl();
+        dis = new DaoDistribuidorImpl();
     }
-    
+
     @Override
     public String getMessage() {
         return mensaje;
@@ -44,9 +44,7 @@ public class DaoProductoImpl implements DaoProducto {
                 .append("idCate,")
                 .append("idDistribuidor")
                 .append(" FROM Producto");
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
-            ResultSet rs = ps.executeQuery();
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString()); ResultSet rs = ps.executeQuery();) {
             lista = new ArrayList<>();
             while (rs.next()) {
                 Producto producto = new Producto();
@@ -55,11 +53,11 @@ public class DaoProductoImpl implements DaoProducto {
                 producto.setDescripcionProducto(rs.getString(3));
                 producto.setStock(rs.getInt(4));
                 producto.setPrecioUnidad(rs.getDouble(5));
-                Integer idCat= rs.getInt(6);
-                Integer idDis= rs.getInt(7);
+                Integer idCat = rs.getInt(6);
+                Integer idDis = rs.getInt(7);
                 producto.setCategoria(cat.get(idCat));
                 producto.setDistribuidor(dis.get(idDis));
-                
+
                 lista.add(producto);
 
             }
@@ -81,9 +79,7 @@ public class DaoProductoImpl implements DaoProducto {
                 .append("idDistribuidor")
                 .append(") VALUES (?,?,?,?,?,?)");
 
-        try (Connection c = con.getConexion()) {
-
-            PreparedStatement ps = c.prepareStatement(sql.toString());
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString());) {
             ps.setString(1, categoria.getNombreProducto());
             ps.setString(2, categoria.getDescripcionProducto());
             ps.setInt(3, categoria.getStock());
@@ -110,8 +106,7 @@ public class DaoProductoImpl implements DaoProducto {
                 .append("idCate = ?,")
                 .append("idDistribuidor = ?")
                 .append(" WHERE idProducto = ?");
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString());) {
             ps.setString(1, categoria.getNombreProducto());
             ps.setString(2, categoria.getDescripcionProducto());
             ps.setInt(3, categoria.getStock());
@@ -129,11 +124,10 @@ public class DaoProductoImpl implements DaoProducto {
 
     @Override
     public String delete(Integer id) {
-         StringBuilder sql = new StringBuilder();
+        StringBuilder sql = new StringBuilder();
         sql.append("DELETE FROM Producto ")
                 .append("WHERE idProducto = ?");
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString());) {
             ps.setInt(1, id);
             mensaje = (ps.executeUpdate() == 0) ? "No se eliminó" : null;
         } catch (Exception e) {
@@ -156,28 +150,31 @@ public class DaoProductoImpl implements DaoProducto {
                 .append("idDistribuidor")
                 .append(" FROM Producto")
                 .append(" WHERE idProducto =?");
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString());) {
             ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                pro= new Producto();
-                pro.setCodProducto(rs.getInt(1));
-                pro.setNombreProducto(rs.getString(2));
-                pro.setDescripcionProducto(rs.getString(3));
-                pro.setStock(rs.getInt(4));
-                pro.setPrecioUnidad(rs.getDouble(5));
-                Integer idCat= rs.getInt(6);
-                Integer idDis= rs.getInt(7);
-                pro.setCategoria(cat.get(idCat));
-                pro.setDistribuidor(dis.get(idDis));
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    pro = new Producto();
+                    pro.setCodProducto(rs.getInt(1));
+                    pro.setNombreProducto(rs.getString(2));
+                    pro.setDescripcionProducto(rs.getString(3));
+                    pro.setStock(rs.getInt(4));
+                    pro.setPrecioUnidad(rs.getDouble(5));
+                    Integer idCat = rs.getInt(6);
+                    Integer idDis = rs.getInt(7);
+                    pro.setCategoria(cat.get(idCat));
+                    pro.setDistribuidor(dis.get(idDis));
+                }
+            } catch (Exception e) {
+                mensaje = e.getMessage();
             }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return pro;
     }
-    
+
     @Override
     public List<Object[]> verData() {
         List<Object[]> list = null;
@@ -191,19 +188,17 @@ public class DaoProductoImpl implements DaoProducto {
                 .append("Categoria,")
                 .append("Distribuidor")
                 .append(" FROM productoView");
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
-            ResultSet rs = ps.executeQuery();
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString()); ResultSet rs = ps.executeQuery();) {
             list = new ArrayList<>();
             while (rs.next()) {
-                Object[] obj= new Object [7];
-                obj[0]=rs.getInt(1);
-                obj[1]=rs.getString(2);
-                obj[2]=rs.getString(3);
-                obj[3]=rs.getInt(4);
-                obj[4]=rs.getDouble(5);
-                obj[5]=rs.getString(6);
-                obj[6]=rs.getString(7);
+                Object[] obj = new Object[7];
+                obj[0] = rs.getInt(1);
+                obj[1] = rs.getString(2);
+                obj[2] = rs.getString(3);
+                obj[3] = rs.getInt(4);
+                obj[4] = rs.getDouble(5);
+                obj[5] = rs.getString(6);
+                obj[6] = rs.getString(7);
                 list.add(obj);
             }
         } catch (Exception e) {

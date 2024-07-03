@@ -36,9 +36,7 @@ public class DaoClienteImpl implements DaoCliente {
                 .append("correo,")
                 .append("dni")
                 .append(" FROM Cliente");
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
-            ResultSet rs = ps.executeQuery();
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString()); ResultSet rs = ps.executeQuery();) {
             lista = new ArrayList<>();
             while (rs.next()) {
                 Cliente cliente = new Cliente();
@@ -67,9 +65,7 @@ public class DaoClienteImpl implements DaoCliente {
                 .append("dni")
                 .append(") VALUES (?,?,?,?,?)");
 
-        try (Connection c = con.getConexion()) {
-
-            PreparedStatement ps = c.prepareStatement(sql.toString());
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString());) {
             ps.setString(1, categoria.getApellidoUsuario());
             ps.setString(2, categoria.getNombreUsuario());
             ps.setString(3, categoria.getTelefono());
@@ -93,8 +89,7 @@ public class DaoClienteImpl implements DaoCliente {
                 .append("correo = ?,")
                 .append("dni = ?")
                 .append(" WHERE idCliente = ?");
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString());) {
             ps.setString(1, categoria.getNombreUsuario());
             ps.setString(2, categoria.getApellidoUsuario());
             ps.setString(3, categoria.getTelefono());
@@ -114,8 +109,7 @@ public class DaoClienteImpl implements DaoCliente {
         StringBuilder sql = new StringBuilder();
         sql.append("DELETE FROM Cliente ")
                 .append("WHERE idCliente = ?");
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString());) {
             ps.setInt(1, id);
             mensaje = (ps.executeUpdate() == 0) ? "No se eliminó" : null;
         } catch (Exception e) {
@@ -137,19 +131,22 @@ public class DaoClienteImpl implements DaoCliente {
                 .append("dni")
                 .append(" FROM Cliente")
                 .append(" WHERE idCliente = ?");
-        try (Connection c = con.getConexion()) {
-            PreparedStatement ps = c.prepareStatement(sql.toString());
+        try (Connection c = con.getConexion(); PreparedStatement ps = c.prepareStatement(sql.toString());) {
             ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                cli = new Cliente();
-                cli.setCodUsuario(rs.getInt(1));
-                cli.setApellidoUsuario(rs.getString(2));
-                cli.setNombreUsuario(rs.getString(3));
-                cli.setTelefono(rs.getString(4));
-                cli.setCorreo(rs.getString(5));
-                cli.setDni(rs.getString(6));
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    cli = new Cliente();
+                    cli.setCodUsuario(rs.getInt(1));
+                    cli.setApellidoUsuario(rs.getString(2));
+                    cli.setNombreUsuario(rs.getString(3));
+                    cli.setTelefono(rs.getString(4));
+                    cli.setCorreo(rs.getString(5));
+                    cli.setDni(rs.getString(6));
+                }
+            } catch (Exception e) {
+                mensaje = e.getMessage();
             }
+
         } catch (Exception e) {
             mensaje = e.getMessage();
         }
