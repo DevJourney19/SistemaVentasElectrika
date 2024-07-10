@@ -212,9 +212,9 @@ public class ProductoController implements ActionListener {
                     break;
                 }
             }
-
+            dao.insert(new Producto(null, nombre, descripcion, stock, precio, categoriaSeleccionada, distribuidorSeleccionado));
             JOptionPane.showMessageDialog(null,
-                    dao.insert(new Producto(null, nombre, descripcion, stock, precio, categoriaSeleccionada, distribuidorSeleccionado)));
+                    "Se inserto un nuevo producto");
             listado();
             habilitar(false);
         }
@@ -440,10 +440,10 @@ public class ProductoController implements ActionListener {
         }
 
         try {
-            double valor = Double.parseDouble(view.txtBuscarB.getText());
+            Double valor = Double.parseDouble(view.txtBuscarB.getText());
             Integer resultado = Busqueda.busquedaBinariaNumeric((List<String>) columnValues, valor);
             if (resultado != null) {
-                view.labelAntesResu.setText(String.format("%s se encuentra en la fila:", view.txtBuscarB.getText()));
+                view.labelAntesResu.setText(String.format("%s  se encuentra en la fila:", view.txtBuscarB.getText()));
                 view.labelResultado.setText(String.valueOf((resultado + 1)));
                 view.labelAntesResu.setVisible(true);
                 view.labelResultado.setVisible(true);

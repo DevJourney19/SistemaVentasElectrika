@@ -154,7 +154,7 @@ public class App {
 
             Paragraph mensaje = new Paragraph();
             mensaje.add(Chunk.NEWLINE);
-            mensaje.add("Gracias por su compra!!");
+            mensaje.add("¡¡Gracias por su compra!!");
             mensaje.setAlignment(Element.ALIGN_CENTER);
             document.add(mensaje);
 

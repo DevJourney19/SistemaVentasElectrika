@@ -5,8 +5,10 @@ import com.electrika.tech.dao.impl.DaoVendedorImpl;
 import com.electrika.tech.entidades.Vendedor;
 import com.electrika.tech.util.LocaleManager;
 import com.electrika.tech.view.*;
-import java.awt.Image;
-import java.awt.Toolkit;
+//import java.awt.Image;
+//import java.awt.Toolkit;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Locale;
@@ -31,7 +33,7 @@ public class HomeViewController {
         vista.setVisible(true);
         dao = new DaoVendedorImpl();
         vendedor = dao.getEmpleado();
-        vista.jMenuName.setText(String.format("%s %s",bundle.getString("welcome"), vendedor.getNombreUsuario()));
+        vista.jMenuName.setText(String.format("%s %s", bundle.getString("welcome"), vendedor.getNombreUsuario()));
         asignarLenguaje();
         agregarEvento();
     }
@@ -116,6 +118,14 @@ public class HomeViewController {
         InterManageUser manage = new InterManageUser();
         VendedorController ven = new VendedorController(manage);
         manage.setSize(vista.desktopPane.getSize());
+        manage.setLocation(0, 0);
+        manage.addComponentListener(new ComponentAdapter() {
+            public void componentMoved(ComponentEvent e) {
+//                manage.setLocation(0, 00); //posicion fija
+                manage.setBounds(0, 0, manage.getWidth(), manage.getHeight());
+            }
+        });
+//        manage.setSize(vista.desktopPane.getSize());
         vista.desktopPane.add(manage);
         manage.setVisible(true);
     }
@@ -130,6 +140,14 @@ public class HomeViewController {
         InterCategoria manage = new InterCategoria();
         CategoriaController cat = new CategoriaController(manage);
         manage.setSize(vista.desktopPane.getSize());
+        manage.setLocation(0, 0);
+        manage.addComponentListener(new ComponentAdapter() {
+            public void componentMoved(ComponentEvent e) {
+//                manage.setLocation(0, 00); //posicion fija
+                manage.setBounds(0, 0, manage.getWidth(), manage.getHeight());
+            }
+        });
+//        manage.setSize(vista.desktopPane.getSize());
         vista.desktopPane.add(manage);
         manage.setVisible(true);
     }
@@ -138,6 +156,16 @@ public class HomeViewController {
         InterManageDistribuidor manage = new InterManageDistribuidor();
         DistribuidorController dis = new DistribuidorController(manage);
         manage.setSize(vista.desktopPane.getSize());
+
+        manage.setLocation(0, 0);
+        manage.addComponentListener(new ComponentAdapter() {
+            public void componentMoved(ComponentEvent e) {
+//                manage.setLocation(0, 00); //posicion fija
+                manage.setBounds(0, 0, manage.getWidth(), manage.getHeight());
+            }
+        });
+//        manage.setSize(vista.desktopPane.getSize());
+
         vista.desktopPane.add(manage);
         manage.setVisible(true);
     }
@@ -148,6 +176,14 @@ public class HomeViewController {
         //Controlador
         ClienteController cc = new ClienteController(manage);
         manage.setSize(vista.desktopPane.getSize());
+        manage.setLocation(0, 0);
+        manage.addComponentListener(new ComponentAdapter() {
+            public void componentMoved(ComponentEvent e) {
+//                manage.setLocation(0, 00); //posicion fija
+                manage.setBounds(0, 0, manage.getWidth(), manage.getHeight());
+            }
+        });
+//        manage.setSize(vista.desktopPane.getSize());
         vista.desktopPane.add(manage);
         manage.setVisible(true);
     }
@@ -158,6 +194,15 @@ public class HomeViewController {
         //Controlador
         ProductoController pc = new ProductoController(manage);
         manage.setSize(vista.desktopPane.getSize());
+        manage.setLocation(0, 0);
+        manage.addComponentListener(new ComponentAdapter() {
+            public void componentMoved(ComponentEvent e) {
+//                manage.setLocation(0, 00); //posicion fija
+                manage.setBounds(0, 0, manage.getWidth(), manage.getHeight());
+            }
+        });
+//        manage.setSize(vista.desktopPane.getSize());
+
         vista.desktopPane.add(manage);
         manage.setVisible(true);
     }
@@ -168,6 +213,14 @@ public class HomeViewController {
         //Controlador
         PedidoController cc = new PedidoController(manage);
         manage.setSize(vista.desktopPane.getSize());
+        manage.setLocation(0, 0);
+        manage.addComponentListener(new ComponentAdapter() {
+            public void componentMoved(ComponentEvent e) {
+//                manage.setLocation(0, 00); //posicion fija
+                manage.setBounds(0, 0, manage.getWidth(), manage.getHeight());
+            }
+        });
+//        manage.setSize(vista.desktopPane.getSize());
         vista.desktopPane.add(manage);
         manage.setVisible(true);
     }

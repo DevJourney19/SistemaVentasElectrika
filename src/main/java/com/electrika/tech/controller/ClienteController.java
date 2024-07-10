@@ -145,9 +145,9 @@ public class ClienteController implements ActionListener {
          */
         //Se actualiza el lenguaje de los nombres de los elementos del Java Swing
         view.jLabel4.setText(bundle.getString("title"));
-        view.jLabelNombre.setText(bundle.getString("name"));        
+        view.jLabelNombre.setText(bundle.getString("name"));
         view.jLabelApellido.setText(bundle.getString("lastname"));
-        view.jLabelCorreo.setText(bundle.getString("address"));
+        view.jLabelCorreo.setText(bundle.getString("email"));
         view.jLabelTelefono.setText(bundle.getString("phone"));
         view.jLabelId.setText(bundle.getString("id"));
         view.btnAgregar.setText(bundle.getString("add"));
@@ -158,7 +158,7 @@ public class ClienteController implements ActionListener {
         view.btnAceptarEliminar.setText(bundle.getString("bAccept"));
         view.btnCancelar.setText(bundle.getString("bCancel"));
         //Cuadros del sort y search
-        view.jLabel7.setText(bundle.getString("sortTitle"));        
+        view.jLabel7.setText(bundle.getString("sortTitle"));
         view.jLabel3.setText(bundle.getString("sortDescription"));
         view.btnOrdenar.setText(bundle.getString("sort"));
         view.btnAscendente.setText(bundle.getString("asc"));
@@ -169,7 +169,7 @@ public class ClienteController implements ActionListener {
         view.btnBuscarData.setText(bundle.getString("search"));
 
         //Cambiar titulos del encabezado de la tabla
-        String[] titulos = {bundle.getString("id"), "Dni", bundle.getString("name"), bundle.getString("lastname"), bundle.getString("phone"), bundle.getString("address")};
+        String[] titulos = {bundle.getString("id"), "Dni", bundle.getString("name"), bundle.getString("lastname"), bundle.getString("phone"), bundle.getString("email")};
         tabla.setColumnIdentifiers(titulos);
         view.tableClients.setModel(tabla);
 
@@ -254,8 +254,8 @@ public class ClienteController implements ActionListener {
             String dni = view.txtDni.getText();
             String telefono = view.txtTelefono.getText();
             String correo = view.txtCorreo.getText();
-            Cliente cli = new Cliente(null, apellido, nombre, dni, telefono, correo);
-            JOptionPane.showMessageDialog(null, dao.insert(cli));
+            dao.insert(new Cliente(null, apellido, nombre, dni, telefono, correo));
+            JOptionPane.showMessageDialog(null, "Se inserto un nuevo cliente");
             listado();
             habilitar(false);
         }
@@ -274,8 +274,8 @@ public class ClienteController implements ActionListener {
             String dni = view.txtDni.getText();
             String telefono = view.txtTelefono.getText();
             String correo = capitalizeFirstLetter(view.txtCorreo.getText());
-            JOptionPane.showMessageDialog(null,
-                    dao.update(new Cliente(id, apellido, nombre, dni, telefono, correo)));
+            dao.update(new Cliente(id, apellido, nombre, dni, telefono, correo));
+            JOptionPane.showMessageDialog(null, "Se actualizo el cliente");
             listado();
             view.txtId.setEnabled(false);
             view.btnBuscar.setEnabled(false);
@@ -473,7 +473,7 @@ public class ClienteController implements ActionListener {
             if (index != null && index >= 0 && index < data.size()) {
                 StringBuilder rowDataString = new StringBuilder();
                 rowDataString.append(bundle.getString("labelLocated"))
-                        .append(index)
+                        .append(index + 1)
                         .append("\n")
                         .append(bundle.getString("labelSearch"))
                         .append(valor)

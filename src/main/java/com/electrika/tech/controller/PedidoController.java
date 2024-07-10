@@ -321,7 +321,7 @@ public class PedidoController implements ActionListener {
 
             PdfPCell imageAndTitleCell = new PdfPCell();
             imageAndTitleCell.setBorder(Rectangle.NO_BORDER);
-            Image img = Image.getInstance("src/com/electrika/tech/img/logo.png");
+            Image img = Image.getInstance(getClass().getResource("/logo.png"));
             img.scaleToFit(100, 100);
             imageAndTitleCell.addElement(img);
 

@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.util.Date;
 
 public class Distribuidor {
+
     private Integer idDistribuidor;
     private String ruc;
     private String nombre;
@@ -63,7 +64,7 @@ public class Distribuidor {
 
     @Override
     public String toString() {
-        return "Distribuidor{" + "idDistribuidor=" + idDistribuidor + ", ruc=" + ruc + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono + '}';
+        return nombre;
     }
 
 }

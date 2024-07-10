@@ -30,7 +30,7 @@ public class CategoriaController implements ActionListener {
         listado();
         agregarEventos();
     }
-    
+
     private void agregarEventos() {
         view.btnAceptarAgregar.addActionListener(this);
         view.btnAceptarEditar.addActionListener(this);
@@ -45,8 +45,7 @@ public class CategoriaController implements ActionListener {
             public void keyTyped(KeyEvent e) {
                 int key = e.getKeyChar(); // solo letras y espacio
 
-                boolean numeros = (key >= 65 && key <= 90) || (key >= 97 && key <= 122) && key != 32;
-
+                boolean numeros = (key >= 65 && key <= 90) || (key >= 97 && key <= 122);
                 if (!numeros) {
                     e.consume();
                 }
@@ -82,7 +81,7 @@ public class CategoriaController implements ActionListener {
             table.addRow(obj);
         }
     }
-    
+
     public static String capitalizeFirstLetter(String input) {
         if (input == null || input.isEmpty()) {
             return input; // Devolver el mismo texto si es nulo o vacío
@@ -92,7 +91,7 @@ public class CategoriaController implements ActionListener {
         return String.format("%s%s", input.substring(0, 1).toUpperCase(), input.substring(1).toLowerCase());
 
     }
-    
+
     private void habilitar(boolean opc) {
         view.txtNombre.setEnabled(opc);
         view.txtDescripcion.setEnabled(opc);
@@ -147,8 +146,9 @@ public class CategoriaController implements ActionListener {
         } else {
             String nombre = capitalizeFirstLetter(view.txtNombre.getText());
             String descripcion = capitalizeFirstLetter(view.txtDescripcion.getText());
+            dao.insert(new Categoria(null, nombre, descripcion));
             JOptionPane.showMessageDialog(null,
-                    dao.insert(new Categoria(null, nombre, descripcion)));
+                    "Se agrego una nueva categoria");
             listado();
             habilitar(false);
         }
@@ -175,8 +175,9 @@ public class CategoriaController implements ActionListener {
         } else {
             String nombre = capitalizeFirstLetter(view.txtNombre.getText());
             String decripcion = capitalizeFirstLetter(view.txtDescripcion.getText());
+            dao.update(new Categoria(id, nombre, decripcion));
             JOptionPane.showMessageDialog(null,
-                    dao.update(new Categoria(id, nombre, decripcion)));
+                    "Se actualizo la categoria");
             listado();
             view.txtId.setEnabled(false);
             view.btnBuscar.setEnabled(false);

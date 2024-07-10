@@ -539,6 +539,7 @@ public class DistribuidorController implements ActionListener {
                     pila.pop();
                     listado();
                     JOptionPane.showMessageDialog(null, "Se inserto el elemento eliminado");
+                    pila.clear();
                     break;
                 case "deshacerActualizado":
 
