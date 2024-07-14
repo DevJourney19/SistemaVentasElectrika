@@ -391,7 +391,13 @@ public class ClienteController implements ActionListener {
             view.btnEditar.setEnabled(false);
             view.btnEliminar.setEnabled(false);
         } else {
-            JOptionPane.showMessageDialog(null, "Debes elegir una fila");
+            int input = JOptionPane.showConfirmDialog(null, "Deseas eliminar el ultimo cliente?", null, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            if (input == 0) {
+                Integer idEliminado = stack.pop().getCodUsuario();
+                dao.delete(idEliminado);
+                JOptionPane.showMessageDialog(null, "Se elimino el ultimo de la tabla con id: " + idEliminado);
+                listado();
+            }
         }
     }
 
