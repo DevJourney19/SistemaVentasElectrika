@@ -8,10 +8,10 @@ public class ConectaBD {
 
     private static ConectaBD instance = null;
     private static Connection connection = null;
-    private final String URL = "jdbc:mysql://root:bjjUARshXflfhhkLnZKSsMApzjWqFrCR@roundhouse.proxy.rlwy.net:26357/railway";
+    private final String URL = "jdbc:mysql://root:bEwwNOqdstENzObkKPEfJRPqjJyvErzq@roundhouse.proxy.rlwy.net:27772/railway";
     private final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private final String USER = "root";
-    private final String PASS = "bjjUARshXflfhhkLnZKSsMApzjWqFrCR";
+    private final String PASS = "bEwwNOqdstENzObkKPEfJRPqjJyvErzq";
       
     //Patrón de diseño Singleton
     public static ConectaBD getInstance() {
